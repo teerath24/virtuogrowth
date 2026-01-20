@@ -480,7 +480,7 @@ const Contact = () => {
                     </p>
                     <p className="text-xs text-slate-500 dark:text-slate-500 mt-1">
                       Based on {formData.service || "service"} with{" "}
-                      {formData.plan || "plan"} plan
+                      {formData.plan || "plan"}
                     </p>
                   </div>
                   <div className="text-right">

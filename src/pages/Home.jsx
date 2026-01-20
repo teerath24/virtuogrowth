@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useTheme } from "../ThemeContext";
+import ContactUsNow from "../components/ContactUsNow";
 import vaImg from "../images/VA.png";
 import designerImg from "../images/designer.png";
 import developerImg from "../images/developer.png";
@@ -544,36 +545,9 @@ const Home = () => {
         <p className="text-white/80 mb-8">
           Let us match you with elite talent tailored to your business.
         </p>
-        <GetStartedButton />
+        <ContactUsNow />
       </section>
     </main>
-  );
-};
-
-// --- Get Started Button with Water Fill Effect ---
-const GetStartedButton = () => {
-  const [isHovered, setIsHovered] = useState(false);
-
-  return (
-    <button
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      className="relative px-8 py-4 rounded-full font-bold overflow-hidden transition-all duration-300 hover:scale-105"
-    >
-      {/* Base background */}
-      <div className="absolute inset-0 bg-[#ECC600]"></div>
-
-      {/* Water fill effect */}
-      <div
-        className="absolute inset-0 bg-[#fff] transition-all duration-700 ease-out"
-        style={{
-          transform: isHovered ? "translateY(0%)" : "translateY(100%)",
-        }}
-      />
-
-      {/* Text */}
-      <span className="relative z-10 text-[#004F7F]">Get Started</span>
-    </button>
   );
 };
 

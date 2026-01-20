@@ -1,5 +1,5 @@
-// src/pages/About.jsx
 import React from "react";
+import ContactUsNow from "../components/ContactUsNow";
 
 const About = () => {
   return (
@@ -141,36 +141,15 @@ const About = () => {
         </div>
       </section>
 
-      {/* Get in Touch */}
-      <section className="py-20 px-6 md:px-12 bg-gradient-to-br from-[#004F7F] to-[#002233] text-white">
-        <div className="max-w-4xl mx-auto text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-6">
-            Ready to Build Your Dream Team?
-          </h2>
-          <p className="text-xl mb-8 opacity-90">
-            Whether you're looking for a single specialist or building an entire
-            remote team, we're here to help.
-          </p>
-          <a
-            href="/contact"
-            className="inline-flex items-center px-8 py-3 rounded-full bg-[#ECC600] text-[#004F7F] font-bold hover:bg-[#FFD700] transition-colors"
-          >
-            Get Started
-            <svg
-              className="w-5 h-5 ml-2"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M17 8l4 4m0 0l-4 4m4-4H3"
-              />
-            </svg>
-          </a>
-        </div>
+      {/* Optional: Add the exact same CTA section from Home page if you want identical styling */}
+      <section className="bg-[#004F7F] dark:bg-slate-900 py-24 text-center px-6">
+        <h2 className="text-4xl font-bold text-white mb-4">
+          Ready to Build Your Remote Team?
+        </h2>
+        <p className="text-white/80 mb-8">
+          Let us match you with elite talent tailored to your business.
+        </p>
+        <ContactUsNow />
       </section>
     </div>
   );
