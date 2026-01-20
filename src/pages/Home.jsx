@@ -168,16 +168,15 @@ const Home = () => {
         <div>
           {/* Card 1 - Virtual Assistants */}
           <div
-            className="h-screen sticky top-0 flex items-center justify-center px-6"
+            className="min-h-screen md:h-screen sticky top-0 flex items-center justify-center px-6 py-8 md:py-0"
             style={{ zIndex: 3 }}
             data-card="0"
           >
             <div
-              className="w-full max-w-6xl flex flex-col md:flex-row items-stretch gap-6"
+              className="w-full max-w-6xl flex flex-col md:flex-row items-stretch gap-6 md:h-[400px]"
               style={{
                 opacity: 1 - cardScrollProgress[0],
                 transition: "opacity 0.1s ease-out",
-                height: "400px",
               }}
             >
               {/* Text Box */}
@@ -215,7 +214,7 @@ const Home = () => {
                 </ul>
 
                 <a
-                  href="#"
+                  href="#services#core-services"
                   className="inline-flex items-center gap-2 text-white dark:text-[#004F7F] font-bold hover:gap-3 transition-all"
                 >
                   Hire Virtual Assistants →
@@ -233,16 +232,15 @@ const Home = () => {
 
           {/* Card 2 - Web Designers */}
           <div
-            className="h-screen sticky top-0 flex items-center justify-center px-6"
+            className="min-h-screen md:h-screen sticky top-0 flex items-center justify-center px-6 py-8 md:py-0"
             style={{ zIndex: 2 }}
             data-card="1"
           >
             <div
-              className="w-full max-w-6xl flex flex-col md:flex-row items-stretch gap-6"
+              className="w-full max-w-6xl flex flex-col md:flex-row items-stretch gap-6 md:h-[400px]"
               style={{
                 opacity: 1 - cardScrollProgress[1],
                 transition: "opacity 0.1s ease-out",
-                height: "400px", // Added: same height as Card 1
               }}
             >
               {/* Text Box */}
@@ -279,7 +277,7 @@ const Home = () => {
                 </ul>
 
                 <a
-                  href="#"
+                  href="#services#core-services"
                   className="inline-flex items-center gap-2 text-white dark:text-[#004F7F] font-bold hover:gap-3 transition-all"
                 >
                   Hire Web Designers →
@@ -297,16 +295,15 @@ const Home = () => {
 
           {/* Card 3 - Web Developers */}
           <div
-            className="h-screen sticky top-0 flex items-center justify-center px-6"
+            className="min-h-screen md:h-screen sticky top-0 flex items-center justify-center px-6 py-8 md:py-0"
             style={{ zIndex: 1 }}
             data-card="2"
           >
             <div
-              className="w-full max-w-6xl flex flex-col md:flex-row items-stretch gap-6"
+              className="w-full max-w-6xl flex flex-col md:flex-row items-stretch gap-6 md:h-[400px]"
               style={{
                 opacity: 1 - cardScrollProgress[2],
                 transition: "opacity 0.1s ease-out",
-                height: "400px", // Added: same height as Card 1
               }}
             >
               {/* Text Box */}
@@ -343,7 +340,7 @@ const Home = () => {
                 </ul>
 
                 <a
-                  href="#"
+                  href="#services#core-services"
                   className="inline-flex items-center gap-2 text-white dark:text-[#004F7F] font-bold hover:gap-3 transition-all"
                 >
                   Hire Web Developers →

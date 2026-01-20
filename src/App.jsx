@@ -1,5 +1,4 @@
-// App.jsx
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import { ThemeProvider } from "./ThemeContext";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
@@ -11,7 +10,6 @@ import Navbar from "./pages/Navbar";
 import Footer from "./pages/Footer";
 import "./App.css";
 
-// Simple scroll to top - NO SEPARATE FILE NEEDED
 function ScrollToTop() {
   const { pathname } = useLocation();
 
@@ -26,6 +24,7 @@ function App() {
   return (
     <ThemeProvider>
       <Router>
+        {" "}
         <ScrollToTop />
         <Navbar />
         <Routes>
