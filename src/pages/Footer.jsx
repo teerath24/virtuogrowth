@@ -199,7 +199,7 @@ const Footer = () => {
             <ul className="space-y-3">
               <li>
                 <a
-                  href="#"
+                  href="https://www.facebook.com/profile.php?id=61586160104825"
                   className="text-white/80 hover:text-[#ECC600] transition-colors text-sm block"
                 >
                   Facebook
@@ -207,7 +207,7 @@ const Footer = () => {
               </li>
               <li>
                 <a
-                  href="#"
+                  href="https://www.linkedin.com/company/virtuogrowth-partners/"
                   className="text-white/80 hover:text-[#ECC600] transition-colors text-sm block"
                 >
                   LinkedIn

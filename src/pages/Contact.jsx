@@ -233,7 +233,8 @@ const Contact = () => {
   const estimatedPriceInfo = calculateEstimatedPrice();
 
   return (
-    <main className="min-h-screen bg-gradient-to-b from-slate-50 to-white dark:from-slate-900 dark:to-slate-900 py-16 px-6">
+    <main className="min-h-screen bg-gradient-to-b from-slate-50 to-white dark:from-slate-900 dark:to-slate-900 pt-32 pb-16 px-6">
+      {" "}
       {/* Toast Notification */}
       {toast && (
         <Toast
@@ -242,7 +243,6 @@ const Contact = () => {
           onClose={() => setToast(null)}
         />
       )}
-
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="text-center mb-12">
@@ -511,7 +511,7 @@ const Contact = () => {
             </div>
 
             {/* Submit Button */}
-            <div className="pt-4">
+            <div className="pt-4 ">
               <button
                 type="submit"
                 disabled={isSubmitting}
@@ -616,7 +616,6 @@ const Contact = () => {
           </div>
         </div>
       </div>
-
       <style>{`
         @keyframes slide-down {
           from {

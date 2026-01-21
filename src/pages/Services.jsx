@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTheme } from "../ThemeContext";
+import blackHeroImg from "../images/blackHero.jpg";
+import whiteHeroImg from "../images/whiteHero.jpg";
 
 const Services = () => {
   const navigate = useNavigate();
-
-  // State for selected service card
+  const { isDark } = useTheme();
   const [selectedService, setSelectedService] = useState("Virtual Assistants");
   const [selectedPricing, setSelectedPricing] = useState("Full-Time");
 
@@ -38,9 +40,21 @@ const Services = () => {
 
   return (
     <main className="w-full">
-      {/* Hero Section */}
-      <section className="relative flex flex-col items-center justify-center min-h-[60vh] p-6 text-center transition-colors duration-300 bg-gradient-to-b from-slate-50 to-white dark:from-slate-900 dark:to-slate-900">
-        <div className="max-w-4xl mx-auto pt-32 pb-16">
+      {/* Hero Section with Background Images */}
+      <section className="relative flex flex-col items-center justify-center min-h-[60vh] p-6 text-center transition-colors duration-300 overflow-hidden">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0">
+          <img
+            src={isDark ? blackHeroImg : whiteHeroImg}
+            alt="Services hero background"
+            className="w-full h-full object-cover"
+          />
+        </div>
+
+        {/* Gradient fade-out at bottom */}
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white to-transparent dark:from-slate-900 z-10"></div>
+
+        <div className="max-w-4xl mx-auto pt-32 pb-16 relative z-20">
           <h1 className="text-5xl md:text-7xl font-bold tracking-tighter text-slate-900 dark:text-white mb-6 leading-tight">
             Premium Remote Talent
             <span className="text-[#004F7F] dark:text-[#ECC600]">
@@ -48,7 +62,7 @@ const Services = () => {
               Solutions
             </span>
           </h1>
-          <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed mb-8">
+          <p className="text-lg text-slate-900 dark:text-white/90 max-w-2xl mx-auto leading-relaxed mb-8 font-medium">
             We connect businesses with top-tier Virtual Assistants, Web
             Designers, and Web Developers. Fully vetted, expertly matched,
             seamlessly integrated.
