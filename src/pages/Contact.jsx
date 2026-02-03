@@ -66,10 +66,10 @@ const Contact = () => {
   const [toast, setToast] = useState(null);
   const [isHovered, setIsHovered] = useState(false);
 
-  // EmailJS Configuration - Replace with your actual credentials
-  const EMAILJS_SERVICE_ID = "YOUR_SERVICE_ID"; // Replace with your EmailJS service ID
-  const EMAILJS_TEMPLATE_ID = "YOUR_TEMPLATE_ID"; // Replace with your EmailJS template ID
-  const EMAILJS_PUBLIC_KEY = "YOUR_PUBLIC_KEY"; // Replace with your EmailJS public key
+  // EmailJS Configuration
+  const EMAILJS_SERVICE_ID = "service_uppgg2j";
+  const EMAILJS_TEMPLATE_ID = "template_kfonuxg";
+  const EMAILJS_PUBLIC_KEY = "1_WK7wG-r7N-xLeCE";
 
   // Price mapping for calculations
   const priceMap = {
@@ -197,7 +197,7 @@ const Contact = () => {
         EMAILJS_SERVICE_ID,
         EMAILJS_TEMPLATE_ID,
         templateParams,
-        EMAILJS_PUBLIC_KEY
+        EMAILJS_PUBLIC_KEY,
       );
 
       // Show success message
@@ -505,8 +505,8 @@ const Contact = () => {
                 rows={4}
                 value={formData.message}
                 onChange={handleInputChange}
-                className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-[#004F7F] dark:focus:ring-[#ECC600] focus:border-transparent transition-colors"
-                placeholder="Tell us about your project, timeline, specific skills needed, or any other requirements..."
+                placeholder="Tell us about your needs and we'll match you with the perfect talent solution. Include details about your project, timeline, specific skills needed, or any other requirements..."
+                className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:ring-2 focus:ring-[#004F7F] dark:focus:ring-[#ECC600] focus:border-transparent transition-colors resize-none"
               />
             </div>
 
