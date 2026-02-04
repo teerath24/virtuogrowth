@@ -102,16 +102,13 @@ const Footer = () => {
                 </a>
               </li>
               <li>
-                <a
-                  href="#how-it-works"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleFooterLinkClick("#how-it-works");
-                  }}
+                <Link
+                  to="/contact"
+                  onClick={() => handleFooterLinkClick("/contact")}
                   className="text-white/80 hover:text-[#ECC600] transition-colors text-sm block"
                 >
-                  How It Works
-                </a>
+                  Contact
+                </Link>
               </li>
             </ul>
           </div>
