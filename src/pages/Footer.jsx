@@ -207,7 +207,7 @@ const Footer = () => {
           </div>
 
           {/* Column 4 - Reach Out */}
-          <div className="md:w-64 md:px-8 md:border-r md:border-dotted md:border-[#333]">
+          {/* <div className="md:w-64 md:px-8 md:border-r md:border-dotted md:border-[#333]">
             <h3 className="text-[#666] text-xs font-bold tracking-widest uppercase mb-6">
               REACH OUT
             </h3>
@@ -234,7 +234,7 @@ const Footer = () => {
                 </Link>
               </li>
             </ul>
-          </div>
+          </div> */}
 
           {/* Column 5 - Socials */}
           <div className="md:w-64 md:px-8">
