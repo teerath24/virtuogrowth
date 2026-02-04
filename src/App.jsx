@@ -6,6 +6,7 @@ import Home from "./pages/Home";
 import Services from "./pages/Services";
 import Contact from "./pages/Contact";
 import About from "./pages/About";
+import Apply from "./pages/Apply";
 import Navbar from "./pages/Navbar";
 import Footer from "./pages/Footer";
 import "./App.css";
@@ -24,7 +25,6 @@ function App() {
   return (
     <ThemeProvider>
       <Router>
-        {" "}
         <ScrollToTop />
         <Navbar />
         <Routes>
@@ -32,6 +32,7 @@ function App() {
           <Route path="/services" element={<Services />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/about" element={<About />} />
+          <Route path="/apply" element={<Apply />} />
         </Routes>
         <Footer />
       </Router>

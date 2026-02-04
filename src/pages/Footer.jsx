@@ -16,7 +16,7 @@ const Footer = () => {
       {
         threshold: 0.1,
         rootMargin: "0px 0px -100px 0px",
-      }
+      },
     );
 
     if (footerRef.current) {
@@ -161,7 +161,52 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Column 3 - Reach Out */}
+          {/* Column 3 - For Talent */}
+          <div className="md:w-64 md:px-8 md:border-r md:border-dotted md:border-[#333]">
+            <h3 className="text-[#666] text-xs font-bold tracking-widest uppercase mb-6">
+              FOR TALENT
+            </h3>
+            <ul className="space-y-3">
+              <li>
+                <Link
+                  to="/apply"
+                  onClick={() => handleFooterLinkClick("/apply")}
+                  className="text-white/80 hover:text-[#ECC600] transition-colors text-sm block"
+                >
+                  Join Our Network
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/apply?role=va"
+                  onClick={() => handleFooterLinkClick("/apply?role=va")}
+                  className="text-white/80 hover:text-[#ECC600] transition-colors text-sm block"
+                >
+                  Apply as VA
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/apply?role=designer"
+                  onClick={() => handleFooterLinkClick("/apply?role=designer")}
+                  className="text-white/80 hover:text-[#ECC600] transition-colors text-sm block"
+                >
+                  Apply as Designer
+                </Link>
+              </li>
+              <li>
+                <Link
+                  to="/apply?role=developer"
+                  onClick={() => handleFooterLinkClick("/apply?role=developer")}
+                  className="text-white/80 hover:text-[#ECC600] transition-colors text-sm block"
+                >
+                  Apply as Developer
+                </Link>
+              </li>
+            </ul>
+          </div>
+
+          {/* Column 4 - Reach Out */}
           <div className="md:w-64 md:px-8 md:border-r md:border-dotted md:border-[#333]">
             <h3 className="text-[#666] text-xs font-bold tracking-widest uppercase mb-6">
               REACH OUT
@@ -191,7 +236,7 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Column 4 - Socials */}
+          {/* Column 5 - Socials */}
           <div className="md:w-64 md:px-8">
             <h3 className="text-[#666] text-xs font-bold tracking-widest uppercase mb-6">
               SOCIALS
