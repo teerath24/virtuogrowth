@@ -13,7 +13,7 @@ const Toast = ({ message, type, onClose }) => {
 
   return (
     <div
-      className={`fixed top-6 left-1/2 -translate-x-1/2 z-50 px-6 py-4 rounded-lg shadow-lg flex items-center gap-3 animate-slide-down ${
+      className={`fixed top-6 left-1/2 z-[9999]  z-50 px-6 py-4 rounded-lg shadow-lg flex items-center gap-3 animate-slide-down ${
         type === "success"
           ? "bg-green-500 dark:bg-green-600"
           : "bg-red-500 dark:bg-red-600"
@@ -355,20 +355,20 @@ const Apply = () => {
       </div>
 
       <style>{`
-        @keyframes slide-down {
-          from {
-            transform: translate(-50%, -150%);
-            opacity: 0;
-          }
-          to {
-            transform: translate(-50%, 0);
-            opacity: 1;
-          }
-        }
-        .animate-slide-down {
-          animation: slide-down 0.3s ease-out;
-        }
-      `}</style>
+  @keyframes slide-down {
+    from {
+      transform: translate(-50%, -100%);
+      opacity: 0;
+    }
+    to {
+      transform: translate(-50%, 0);
+      opacity: 1;
+    }
+  }
+  .animate-slide-down {
+    animation: slide-down 0.3s ease-out forwards;
+  }
+`}</style>
     </main>
   );
 };
