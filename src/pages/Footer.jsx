@@ -165,13 +165,13 @@ const Footer = () => {
             </h3>
             <ul className="space-y-3">
               <li>
-                <Link
+                {/* <Link
                   to="/apply"
                   onClick={() => handleFooterLinkClick("/apply")}
                   className="text-white/80 hover:text-[#ECC600] transition-colors text-sm block"
                 >
                   Join Our Network
-                </Link>
+                </Link> */}
               </li>
               <li>
                 <Link
