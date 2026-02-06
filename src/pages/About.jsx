@@ -24,7 +24,7 @@ const About = () => {
           </h2>
           <div className="space-y-4 text-lg text-slate-700 dark:text-slate-300">
             <p>
-              Founded in 2026, Virtuo emerged from a simple observation:
+              Founded in 2025, Virtuo emerged from a simple observation:
               talented professionals are everywhere, but quality opportunities
               aren't equally distributed. Meanwhile, businesses struggle to find
               reliable, skilled talent that fits their specific needs.

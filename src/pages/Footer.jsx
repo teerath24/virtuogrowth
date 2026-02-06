@@ -261,7 +261,7 @@ const Footer = () => {
 
         {/* Bottom Bar */}
         <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-[#2a2a2a] text-sm text-white/50">
-          <p>© Virtuo – 2026</p>
+          <p>© Virtuo – 2025</p>
           <div className="flex gap-6 mt-4 md:mt-0">
             <a href="#" className="hover:text-white transition-colors">
               Terms
