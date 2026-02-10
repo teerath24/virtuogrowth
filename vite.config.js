@@ -11,5 +11,5 @@ export default defineConfig({
     }),
     tailwindcss(),
   ],
-  base: "/virtuogrowth/",
+  base: "/virtuo-growth-partners/",
 });

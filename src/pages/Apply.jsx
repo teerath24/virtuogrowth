@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import emailjs from "@emailjs/browser";
 import { ReactMediaRecorder } from "react-media-recorder";
 // Toast Component
@@ -45,6 +45,7 @@ const Toast = ({ message, type, onClose }) => {
 
 const Apply = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const [selectedRole, setSelectedRole] = useState("");
   const [formData, setFormData] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -193,7 +194,7 @@ const Apply = () => {
       // Show success message
       setToast({
         message:
-          "Your application has been submitted successfully! We'll review it and contact you within 3-5 business days.",
+          "Your application has been submitted successfully! Redirecting...",
         type: "success",
       });
 
@@ -201,10 +202,10 @@ const Apply = () => {
       setFormData({});
       setSelectedRole("");
 
-      // Redirect to home page after 2 seconds
+      // Redirect to thank you page after 2 seconds
       setTimeout(() => {
-        window.location.href = "/";
-      }, 4000);
+        navigate("/thank-you?type=applicant");
+      }, 3000);
     } catch (error) {
       console.error("EmailJS Error:", error);
       setToast({
@@ -289,7 +290,7 @@ const Apply = () => {
               {renderFormFields()}
 
               {/* Submit Button */}
-              <div className="pt-8 border-t border-slate-200 dark:border-slate-700">
+              <div className="pt-8 border-t border-slate-200 dark:border-slate-700 flex flex-col items-center">
                 <button
                   type="submit"
                   disabled={isSubmitting}

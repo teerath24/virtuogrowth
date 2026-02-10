@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import emailjs from "@emailjs/browser";
 
 const Toast = ({ message, type, onClose }) => {
@@ -44,6 +44,7 @@ const Toast = ({ message, type, onClose }) => {
 
 const Contact = () => {
   const location = useLocation();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -202,8 +203,7 @@ const Contact = () => {
 
       // Show success message
       setToast({
-        message:
-          "Your inquiry has been sent successfully! We'll contact you within 24 hours.",
+        message: "Your inquiry has been sent successfully! Redirecting...",
         type: "success",
       });
 
@@ -218,6 +218,11 @@ const Contact = () => {
         plan: prefillInfo.plan || "",
         estimatedPrice: formData.estimatedPrice || "",
       });
+
+      // Redirect to thank you page after 2 seconds
+      setTimeout(() => {
+        navigate("/thank-you?type=client");
+      }, 3000);
     } catch (error) {
       console.error("EmailJS Error:", error);
       setToast({
@@ -511,7 +516,7 @@ const Contact = () => {
             </div>
 
             {/* Submit Button */}
-            <div className="pt-4 ">
+            <div className="pt-4 flex flex-col items-center">
               <button
                 type="submit"
                 disabled={isSubmitting}
