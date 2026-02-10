@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import emailjs from "@emailjs/browser";
-
+import { ReactMediaRecorder } from "react-media-recorder";
 // Toast Component
 const Toast = ({ message, type, onClose }) => {
   React.useEffect(() => {
@@ -109,6 +109,38 @@ const Apply = () => {
     setIsSubmitting(true);
 
     try {
+      let voiceRecordingURL = "";
+
+      // Upload voice recording to Cloudinary if it exists
+      if (formData.voiceRecording) {
+        const cloudinaryFormData = new FormData();
+        cloudinaryFormData.append("file", formData.voiceRecording);
+        cloudinaryFormData.append("upload_preset", "voice-recordings");
+        cloudinaryFormData.append("resource_type", "video");
+
+        try {
+          const cloudinaryResponse = await fetch(
+            "https://api.cloudinary.com/v1_1/dz3trjfj7/upload",
+            {
+              method: "POST",
+              body: cloudinaryFormData,
+            },
+          );
+
+          const cloudinaryData = await cloudinaryResponse.json();
+          voiceRecordingURL = cloudinaryData.secure_url;
+          console.log("Voice recording uploaded:", voiceRecordingURL);
+        } catch (uploadError) {
+          console.error("Cloudinary upload error:", uploadError);
+          setToast({
+            message: "Failed to upload voice recording. Please try again.",
+            type: "error",
+          });
+          setIsSubmitting(false);
+          return;
+        }
+      }
+
       // Format the application data nicely for email
       let formattedData = "";
 
@@ -117,6 +149,11 @@ const Apply = () => {
         const label = key
           .replace(/([A-Z])/g, " $1")
           .replace(/^./, (str) => str.toUpperCase());
+
+        if (key === "voiceRecording") {
+          // Skip the blob, we'll add the URL separately
+          return;
+        }
 
         if (Array.isArray(value)) {
           formattedData += `${label}:\n${value.map((v) => `  • ${v}`).join("\n")}\n\n`;
@@ -128,6 +165,11 @@ const Apply = () => {
         }
       });
 
+      // Add voice recording URL if it exists
+      if (voiceRecordingURL) {
+        formattedData += `\nVoice Recording: ${voiceRecordingURL}\n`;
+      }
+
       // Prepare template parameters for EmailJS
       const templateParams = {
         position: selectedRole.replace("-", " ").toUpperCase(),
@@ -135,6 +177,7 @@ const Apply = () => {
         applicant_email: formData.email || "Not provided",
         applicant_phone: formData.phone || "Not provided",
         applicant_location: formData.location || "Not provided",
+        voice_recording_url: voiceRecordingURL || "Not provided",
         full_application: formattedData,
         timestamp: new Date().toLocaleString(),
       };
@@ -158,8 +201,10 @@ const Apply = () => {
       setFormData({});
       setSelectedRole("");
 
-      // Scroll to top
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      // Redirect to home page after 2 seconds
+      setTimeout(() => {
+        window.location.href = "/";
+      }, 4000);
     } catch (error) {
       console.error("EmailJS Error:", error);
       setToast({
@@ -370,6 +415,141 @@ const Apply = () => {
   }
 `}</style>
     </main>
+  );
+};
+
+// Voice Recording Component
+const VoiceRecorder = ({ formData, onChange }) => {
+  const [audioURL, setAudioURL] = useState(formData.voiceRecording || null);
+
+  const handleStop = (blobUrl, blob) => {
+    setAudioURL(blobUrl);
+    // Store the blob in formData
+    onChange({
+      target: {
+        name: "voiceRecording",
+        value: blob,
+      },
+    });
+  };
+
+  return (
+    <div className="space-y-4">
+      <h3 className="text-xl font-bold text-slate-900 dark:text-white border-b border-slate-200 dark:border-slate-700 pb-3">
+        Voice Sample
+      </h3>
+
+      <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl p-6">
+        <div className="flex items-start gap-4 mb-4">
+          <div className="bg-blue-100 dark:bg-blue-800 p-2 rounded-lg">
+            <svg
+              className="w-6 h-6 text-blue-600 dark:text-blue-300"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"
+              />
+            </svg>
+          </div>
+          <div>
+            <h4 className="font-semibold text-blue-900 dark:text-blue-100 mb-1">
+              Record Your Voice Sample *
+            </h4>
+            <p className="text-blue-700 dark:text-blue-300 text-sm">
+              Please record a short (30-second) introduction. Tell us who you
+              are and why you’d be a great Virtual Assistant. This helps us
+              assess your English communication skills, so please speak loudly
+              and clearly (microphone quality can vary).
+            </p>
+          </div>
+        </div>
+
+        <ReactMediaRecorder
+          audio
+          onStop={handleStop}
+          render={({ status, startRecording, stopRecording }) => (
+            <div className="flex flex-col items-center gap-4">
+              <div className="flex gap-3">
+                <button
+                  type="button"
+                  onClick={startRecording}
+                  disabled={status === "recording"}
+                  className="px-6 py-3 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-300 text-white rounded-full font-medium transition-colors flex items-center gap-2"
+                >
+                  <svg
+                    className="w-5 h-5"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M10 18a8 8 0 100-16 8 8 0 000 16zM9.555 7.168A1 1 0 008 8v4a1 1 0 001.555.832l3-2a1 1 0 000-1.664l-3-2z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                  {status === "recording" ? "Recording..." : "Start Recording"}
+                </button>
+
+                <button
+                  type="button"
+                  onClick={stopRecording}
+                  disabled={status !== "recording"}
+                  className="px-6 py-3 bg-red-600 hover:bg-red-700 disabled:bg-gray-300 text-white rounded-full font-medium transition-colors flex items-center gap-2"
+                >
+                  <svg
+                    className="w-5 h-5"
+                    fill="currentColor"
+                    viewBox="0 0 20 20"
+                  >
+                    <path
+                      fillRule="evenodd"
+                      d="M10 18a8 8 0 100-16 8 8 0 000 16zM8 7a1 1 0 00-1 1v4a1 1 0 001 1h4a1 1 0 001-1V8a1 1 0 00-1-1H8z"
+                      clipRule="evenodd"
+                    />
+                  </svg>
+                  Stop
+                </button>
+              </div>
+
+              <p className="text-sm text-slate-600 dark:text-slate-400">
+                Status: <span className="font-semibold">{status}</span>
+              </p>
+
+              {audioURL && (
+                <div className="w-full bg-white dark:bg-slate-800 p-4 rounded-lg">
+                  <p className="text-sm text-slate-600 dark:text-slate-400 mb-2">
+                    Your recording (click to play):
+                  </p>
+                  <audio src={audioURL} controls className="w-full" />
+                  <div className="flex justify-center">
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setAudioURL(null);
+                        onChange({
+                          target: {
+                            name: "voiceRecording",
+                            value: null,
+                          },
+                        });
+                      }}
+                      className="mt-3 px-6 py-3 bg-red-600 hover:bg-red-700 text-white rounded-full font-medium transition-colors"
+                    >
+                      Delete and re-record
+                    </button>
+                  </div>
+                </div>
+              )}
+            </div>
+          )}
+        />
+      </div>
+    </div>
   );
 };
 
@@ -738,6 +918,7 @@ const VirtualAssistantForm = ({ formData, onChange }) => {
           placeholder="Describe how you would handle this situation..."
         />
       </div>
+      <VoiceRecorder formData={formData} onChange={onChange} />
 
       {/* Resume URL */}
       <div>
