@@ -327,10 +327,11 @@ const Apply = () => {
 
         {/* Info Cards */}
         <div className="grid md:grid-cols-3 gap-6 mt-12">
+          {/* Vetted Opportunities */}
           <div className="text-center">
-            <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="w-12 h-12 bg-[#004F7F]/10 dark:bg-[#ECC600]/10 rounded-full flex items-center justify-center mx-auto mb-4">
               <svg
-                className="w-6 h-6 text-blue-600 dark:text-blue-400"
+                className="w-6 h-6 text-[#004F7F] dark:text-[#ECC600]"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -351,10 +352,11 @@ const Apply = () => {
             </p>
           </div>
 
+          {/* Competitive Pay */}
           <div className="text-center">
-            <div className="w-12 h-12 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="w-12 h-12 bg-[#004F7F]/10 dark:bg-[#ECC600]/10 rounded-full flex items-center justify-center mx-auto mb-4">
               <svg
-                className="w-6 h-6 text-green-600 dark:text-green-400"
+                className="w-6 h-6 text-[#004F7F] dark:text-[#ECC600]"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -375,10 +377,11 @@ const Apply = () => {
             </p>
           </div>
 
+          {/* Ongoing Support - Personalized Support Icon */}
           <div className="text-center">
-            <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="w-12 h-12 bg-[#004F7F]/10 dark:bg-[#ECC600]/10 rounded-full flex items-center justify-center mx-auto mb-4">
               <svg
-                className="w-6 h-6 text-purple-600 dark:text-purple-400"
+                className="w-6 h-6 text-[#004F7F] dark:text-[#ECC600]"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -387,7 +390,14 @@ const Apply = () => {
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   strokeWidth={2}
-                  d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"
+                  d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
+                />
+                {/* Added a small badge-like detail to the user icon to signify "Plus" support */}
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M19 11h2m-1-1v2"
                 />
               </svg>
             </div>
@@ -441,11 +451,13 @@ const VoiceRecorder = ({ formData, onChange }) => {
         Voice Sample
       </h3>
 
-      <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl p-6">
+      {/* Changed border and background to brand colors */}
+      <div className="bg-[#004F7F]/5 dark:bg-[#ECC600]/5 border border-[#004F7F]/20 dark:border-[#ECC600]/20 rounded-xl p-6">
         <div className="flex items-start gap-4 mb-4">
-          <div className="bg-blue-100 dark:bg-blue-800 p-2 rounded-lg">
+          {/* Changed Icon Background and Text color */}
+          <div className="bg-[#004F7F]/10 dark:bg-[#ECC600]/20 p-2 rounded-lg">
             <svg
-              className="w-6 h-6 text-blue-600 dark:text-blue-300"
+              className="w-6 h-6 text-[#004F7F] dark:text-[#ECC600]"
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -459,10 +471,11 @@ const VoiceRecorder = ({ formData, onChange }) => {
             </svg>
           </div>
           <div>
-            <h4 className="font-semibold text-blue-900 dark:text-blue-100 mb-1">
+            {/* Changed Heading and Paragraph colors to match brand */}
+            <h4 className="font-semibold text-[#004F7F] dark:text-[#ECC600] mb-1">
               Record Your Voice Sample *
             </h4>
-            <p className="text-blue-700 dark:text-blue-300 text-sm">
+            <p className="text-[#004F7F]/80 dark:text-[#ECC600]/90 text-sm">
               Please record a short (30-second) introduction. Tell us who you
               are and why you’d be a great Virtual Assistant. This helps us
               assess your English communication skills, so please speak loudly
@@ -481,7 +494,8 @@ const VoiceRecorder = ({ formData, onChange }) => {
                   type="button"
                   onClick={startRecording}
                   disabled={status === "recording"}
-                  className="px-6 py-3 bg-blue-600 hover:bg-blue-700 disabled:bg-blue-300 text-white rounded-full font-medium transition-colors flex items-center gap-2"
+                  /* Changed Button Background */
+                  className="px-6 py-3 bg-[#004F7F] dark:bg-[#ECC600] hover:opacity-90 disabled:bg-slate-300 text-white dark:text-slate-900 rounded-full font-medium transition-colors flex items-center gap-2"
                 >
                   <svg
                     className="w-5 h-5"

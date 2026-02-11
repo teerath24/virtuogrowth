@@ -66,11 +66,11 @@ const ThankYou = () => {
         </p>
 
         {/* Info Box */}
-        <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl p-6 mb-8">
-          <h3 className="font-semibold text-blue-900 dark:text-blue-100 mb-2">
+        <div className="bg-[#004F7F]/5 dark:bg-[#ECC600]/5 border border-[#004F7F]/20 dark:border-[#ECC600]/20 rounded-xl p-6 mb-8">
+          <h3 className="font-semibold text-[#004F7F] dark:text-[#ECC600] mb-2">
             What happens next?
           </h3>
-          <ul className="text-blue-700 dark:text-blue-300 text-sm space-y-2 text-left max-w-md mx-auto">
+          <ul className="text-[#004F7F]/80 dark:text-[#ECC600]/90 text-sm space-y-2 text-left max-w-md mx-auto">
             {isApplicant && (
               <>
                 <li>✓ Our team reviews your application</li>

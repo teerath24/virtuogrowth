@@ -561,9 +561,9 @@ const Contact = () => {
         {/* Benefits */}
         <div className="grid md:grid-cols-3 gap-6 mt-12">
           <div className="text-center">
-            <div className="w-12 h-12 bg-blue-100 dark:bg-blue-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="w-12 h-12 bg-[#004F7F]/10 dark:bg-[#ECC600]/10 rounded-full flex items-center justify-center mx-auto mb-4">
               <svg
-                className="w-6 h-6 text-blue-600 dark:text-blue-400"
+                className="w-6 h-6 text-[#004F7F] dark:text-[#ECC600]"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -572,7 +572,7 @@ const Contact = () => {
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   strokeWidth={2}
-                  d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                  d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z"
                 />
               </svg>
             </div>
@@ -585,9 +585,9 @@ const Contact = () => {
           </div>
 
           <div className="text-center">
-            <div className="w-12 h-12 bg-green-100 dark:bg-green-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="w-12 h-12 bg-[#004F7F]/10 dark:bg-[#ECC600]/10 rounded-full flex items-center justify-center mx-auto mb-4">
               <svg
-                className="w-6 h-6 text-green-600 dark:text-green-400"
+                className="w-6 h-6 text-[#004F7F] dark:text-[#ECC600]"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -596,7 +596,7 @@ const Contact = () => {
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   strokeWidth={2}
-                  d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
+                  d="M13 10V3L4 14h7v7l9-11h-7z"
                 />
               </svg>
             </div>
@@ -609,9 +609,9 @@ const Contact = () => {
           </div>
 
           <div className="text-center">
-            <div className="w-12 h-12 bg-purple-100 dark:bg-purple-900/30 rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="w-12 h-12 bg-[#004F7F]/10 dark:bg-[#ECC600]/10 rounded-full flex items-center justify-center mx-auto mb-4">
               <svg
-                className="w-6 h-6 text-purple-600 dark:text-purple-400"
+                className="w-6 h-6 text-[#004F7F] dark:text-[#ECC600]"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
