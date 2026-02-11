@@ -400,28 +400,24 @@ const Services = () => {
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <button
             onClick={() => navigate("/contact")}
-            className="relative px-8 py-4 rounded-full font-bold overflow-hidden transition-all duration-300 hover:scale-105 group "
+            className="relative px-8 py-4 rounded-full font-bold overflow-hidden transition-all duration-300 hover:scale-105 group"
             onMouseEnter={(e) => {
               e.currentTarget.querySelector(".button-fill").style.transform =
                 "translateY(0%)";
-              e.currentTarget.classList.add("scale-105");
             }}
             onMouseLeave={(e) => {
               e.currentTarget.querySelector(".button-fill").style.transform =
                 "translateY(100%)";
-              e.currentTarget.classList.remove("scale-105");
             }}
           >
-            <div className="absolute inset-0 bg-[#004F7F] dark:bg-[#ECC600]"></div>
+            <div className="absolute inset-0 bg-white dark:bg-[#ECC600]"></div>
+
             <div
               className="absolute inset-0 bg-[#ECC600] dark:bg-white transition-all duration-700 ease-out button-fill"
-              style={{
-                transform: "translateY(100%)",
-              }}
+              style={{ transform: "translateY(100%)" }}
             />
-            <span className="relative z-10 text-[#004F7F] dark:text-[#004F7F]">
-              Call Us Now
-            </span>
+
+            <span className="relative z-10 text-[#004F7F]">Contact Us Now</span>
           </button>
         </div>
       </section>
