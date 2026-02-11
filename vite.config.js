@@ -2,7 +2,7 @@ import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 import tailwindcss from "@tailwindcss/vite";
 
-export default defineConfig({
+export default defineConfig(({ mode }) => ({
   plugins: [
     react({
       babel: {
@@ -11,5 +11,5 @@ export default defineConfig({
     }),
     tailwindcss(),
   ],
-  base: "/virtuo-growth-partners/",
-});
+  base: mode === "production" ? "/virtuogrowth/" : "/",
+}));
