@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import emailjs from "@emailjs/browser";
 import { ReactMediaRecorder } from "react-media-recorder";
+
 // Toast Component
 const Toast = ({ message, type, onClose }) => {
   React.useEffect(() => {
@@ -142,7 +143,6 @@ const Apply = () => {
         }
       }
 
-      // Format the application data nicely for email
       let formattedData = "";
 
       // Format arrays nicely
@@ -152,7 +152,6 @@ const Apply = () => {
           .replace(/^./, (str) => str.toUpperCase());
 
         if (key === "voiceRecording") {
-          // Skip the blob, we'll add the URL separately
           return;
         }
 

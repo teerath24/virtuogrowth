@@ -29,8 +29,8 @@ const Home = () => {
           0,
           Math.min(
             1,
-            (windowHeight - elementTop) / (windowHeight + elementHeight)
-          )
+            (windowHeight - elementTop) / (windowHeight + elementHeight),
+          ),
         );
 
         setScrollProgress(progress);
@@ -101,7 +101,6 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Rest of the file remains exactly the same */}
       {/* Scroll-triggered Text Section */}
       <section className="min-h-screen flex items-center justify-center bg-white dark:bg-slate-900 px-6 py-20 transition-colors duration-300">
         <div ref={scrollTextRef} className="max-w-4xl mx-auto">
@@ -123,8 +122,8 @@ const Home = () => {
                           ? "#fff"
                           : "#000"
                         : isDark
-                        ? "#4b5563"
-                        : "#a9a9a9",
+                          ? "#4b5563"
+                          : "#a9a9a9",
                     transition: "color 0.3s ease",
                   }}
                 >
