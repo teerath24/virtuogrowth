@@ -431,7 +431,13 @@ const Contact = () => {
                   required
                   value={formData.service}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-[#004F7F] dark:focus:ring-[#ECC600] focus:border-transparent transition-colors"
+                  className="w-full px-4 py-3 pr-10 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-[#004F7F] dark:focus:ring-[#ECC600] focus:border-transparent transition-colors appearance-none cursor-pointer"
+                  style={{
+                    backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23475569'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E")`,
+                    backgroundPosition: "right 0.75rem center",
+                    backgroundRepeat: "no-repeat",
+                    backgroundSize: "1.5em 1.5em",
+                  }}
                 >
                   <option value="">Select a service</option>
                   <option value="Virtual Assistants">
@@ -458,7 +464,13 @@ const Contact = () => {
                   required
                   value={formData.plan}
                   onChange={handleInputChange}
-                  className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-[#004F7F] dark:focus:ring-[#ECC600] focus:border-transparent transition-colors"
+                  className="w-full px-4 py-3 pr-10 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-[#004F7F] dark:focus:ring-[#ECC600] focus:border-transparent transition-colors appearance-none cursor-pointer"
+                  style={{
+                    backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23475569'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E")`,
+                    backgroundPosition: "right 0.75rem center",
+                    backgroundRepeat: "no-repeat",
+                    backgroundSize: "1.5em 1.5em",
+                  }}
                 >
                   <option value="">Select a plan</option>
                   <option value="Part-Time">

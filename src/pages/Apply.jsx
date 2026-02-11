@@ -198,10 +198,6 @@ const Apply = () => {
         type: "success",
       });
 
-      // Reset form
-      setFormData({});
-      setSelectedRole("");
-
       // Redirect to thank you page after 2 seconds
       setTimeout(() => {
         navigate("/thank-you?type=applicant");
@@ -273,7 +269,13 @@ const Apply = () => {
           <select
             value={selectedRole}
             onChange={(e) => setSelectedRole(e.target.value)}
-            className="w-full px-4 py-4 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-[#004F7F] dark:focus:ring-[#ECC600] focus:border-transparent transition-colors text-lg"
+            className="w-full px-4 py-4 pr-10 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-[#004F7F] dark:focus:ring-[#ECC600] focus:border-transparent transition-colors text-lg appearance-none cursor-pointer"
+            style={{
+              backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23475569'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E")`,
+              backgroundPosition: "right 0.75rem center",
+              backgroundRepeat: "no-repeat",
+              backgroundSize: "1.5em 1.5em",
+            }}
             required
           >
             <option value="">-- Choose a position --</option>
@@ -575,7 +577,13 @@ const VirtualAssistantForm = ({ formData, onChange }) => {
               required
               value={formData.fullName || ""}
               onChange={onChange}
-              className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-[#004F7F] dark:focus:ring-[#ECC600] focus:border-transparent transition-colors"
+              className="w-full px-4 py-3 pr-10 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-[#004F7F] dark:focus:ring-[#ECC600] focus:border-transparent transition-colors appearance-none cursor-pointer"
+              style={{
+                backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23475569'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E")`,
+                backgroundPosition: "right 0.75rem center",
+                backgroundRepeat: "no-repeat",
+                backgroundSize: "1.5em 1.5em",
+              }}
               placeholder="Jane Doe"
             />
           </div>
@@ -659,7 +667,13 @@ const VirtualAssistantForm = ({ formData, onChange }) => {
               required
               value={formData.experience || ""}
               onChange={onChange}
-              className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-[#004F7F] dark:focus:ring-[#ECC600] focus:border-transparent transition-colors"
+              className="w-full px-4 py-3 pr-10 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-[#004F7F] dark:focus:ring-[#ECC600] focus:border-transparent transition-colors appearance-none cursor-pointer"
+              style={{
+                backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23475569'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E")`,
+                backgroundPosition: "right 0.75rem center",
+                backgroundRepeat: "no-repeat",
+                backgroundSize: "1.5em 1.5em",
+              }}
             >
               <option value="">Select years</option>
               <option value="0-1">0-1 years</option>
@@ -678,7 +692,13 @@ const VirtualAssistantForm = ({ formData, onChange }) => {
               required
               value={formData.employmentStatus || ""}
               onChange={onChange}
-              className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-[#004F7F] dark:focus:ring-[#ECC600] focus:border-transparent transition-colors"
+              className="w-full px-4 py-3 pr-10 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-[#004F7F] dark:focus:ring-[#ECC600] focus:border-transparent transition-colors appearance-none cursor-pointer"
+              style={{
+                backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23475569'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E")`,
+                backgroundPosition: "right 0.75rem center",
+                backgroundRepeat: "no-repeat",
+                backgroundSize: "1.5em 1.5em",
+              }}
             >
               <option value="">Select status</option>
               <option value="employed">Employed</option>
@@ -699,7 +719,13 @@ const VirtualAssistantForm = ({ formData, onChange }) => {
               required
               value={formData.availability || ""}
               onChange={onChange}
-              className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-[#004F7F] dark:focus:ring-[#ECC600] focus:border-transparent transition-colors"
+              className="w-full px-4 py-3 pr-10 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-[#004F7F] dark:focus:ring-[#ECC600] focus:border-transparent transition-colors appearance-none cursor-pointer"
+              style={{
+                backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23475569'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E")`,
+                backgroundPosition: "right 0.75rem center",
+                backgroundRepeat: "no-repeat",
+                backgroundSize: "1.5em 1.5em",
+              }}
             >
               <option value="">Select availability</option>
               <option value="full-time">Full-time (40 hrs/week)</option>
@@ -717,7 +743,13 @@ const VirtualAssistantForm = ({ formData, onChange }) => {
               required
               value={formData.englishLevel || ""}
               onChange={onChange}
-              className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-[#004F7F] dark:focus:ring-[#ECC600] focus:border-transparent transition-colors"
+              className="w-full px-4 py-3 pr-10 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-[#004F7F] dark:focus:ring-[#ECC600] focus:border-transparent transition-colors appearance-none cursor-pointer"
+              style={{
+                backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23475569'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E")`,
+                backgroundPosition: "right 0.75rem center",
+                backgroundRepeat: "no-repeat",
+                backgroundSize: "1.5em 1.5em",
+              }}
             >
               <option value="">Select level</option>
               <option value="native">Native</option>
@@ -832,7 +864,13 @@ const VirtualAssistantForm = ({ formData, onChange }) => {
               required
               value={formData.internet || ""}
               onChange={onChange}
-              className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-[#004F7F] dark:focus:ring-[#ECC600] focus:border-transparent transition-colors"
+              className="w-full px-4 py-3 pr-10 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-[#004F7F] dark:focus:ring-[#ECC600] focus:border-transparent transition-colors appearance-none cursor-pointer"
+              style={{
+                backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23475569'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E")`,
+                backgroundPosition: "right 0.75rem center",
+                backgroundRepeat: "no-repeat",
+                backgroundSize: "1.5em 1.5em",
+              }}
             >
               <option value="">Select option</option>
               <option value="yes">Yes</option>
@@ -849,7 +887,13 @@ const VirtualAssistantForm = ({ formData, onChange }) => {
               required
               value={formData.workspace || ""}
               onChange={onChange}
-              className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-[#004F7F] dark:focus:ring-[#ECC600] focus:border-transparent transition-colors"
+              className="w-full px-4 py-3 pr-10 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-[#004F7F] dark:focus:ring-[#ECC600] focus:border-transparent transition-colors appearance-none cursor-pointer"
+              style={{
+                backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23475569'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E")`,
+                backgroundPosition: "right 0.75rem center",
+                backgroundRepeat: "no-repeat",
+                backgroundSize: "1.5em 1.5em",
+              }}
             >
               <option value="">Select option</option>
               <option value="yes">Yes</option>
@@ -875,7 +919,13 @@ const VirtualAssistantForm = ({ formData, onChange }) => {
               required
               value={formData.startDate || ""}
               onChange={onChange}
-              className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-[#004F7F] dark:focus:ring-[#ECC600] focus:border-transparent transition-colors"
+              className="w-full px-4 py-3 pr-10 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-[#004F7F] dark:focus:ring-[#ECC600] focus:border-transparent transition-colors appearance-none cursor-pointer"
+              style={{
+                backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23475569'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E")`,
+                backgroundPosition: "right 0.75rem center",
+                backgroundRepeat: "no-repeat",
+                backgroundSize: "1.5em 1.5em",
+              }}
             >
               <option value="">Select timeframe</option>
               <option value="immediately">Immediately</option>
@@ -1081,7 +1131,13 @@ const WebDesignerForm = ({ formData, onChange }) => {
               required
               value={formData.experience || ""}
               onChange={onChange}
-              className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-[#004F7F] dark:focus:ring-[#ECC600] focus:border-transparent transition-colors"
+              className="w-full px-4 py-3 pr-10 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-[#004F7F] dark:focus:ring-[#ECC600] focus:border-transparent transition-colors appearance-none cursor-pointer"
+              style={{
+                backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23475569'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E")`,
+                backgroundPosition: "right 0.75rem center",
+                backgroundRepeat: "no-repeat",
+                backgroundSize: "1.5em 1.5em",
+              }}
             >
               <option value="">Select years</option>
               <option value="0-1">0-1 years</option>
@@ -1100,7 +1156,13 @@ const WebDesignerForm = ({ formData, onChange }) => {
               required
               value={formData.employmentStatus || ""}
               onChange={onChange}
-              className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-[#004F7F] dark:focus:ring-[#ECC600] focus:border-transparent transition-colors"
+              className="w-full px-4 py-3 pr-10 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-[#004F7F] dark:focus:ring-[#ECC600] focus:border-transparent transition-colors appearance-none cursor-pointer"
+              style={{
+                backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23475569'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E")`,
+                backgroundPosition: "right 0.75rem center",
+                backgroundRepeat: "no-repeat",
+                backgroundSize: "1.5em 1.5em",
+              }}
             >
               <option value="">Select status</option>
               <option value="employed">Employed</option>
@@ -1121,7 +1183,13 @@ const WebDesignerForm = ({ formData, onChange }) => {
               required
               value={formData.availability || ""}
               onChange={onChange}
-              className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-[#004F7F] dark:focus:ring-[#ECC600] focus:border-transparent transition-colors"
+              className="w-full px-4 py-3 pr-10 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-[#004F7F] dark:focus:ring-[#ECC600] focus:border-transparent transition-colors appearance-none cursor-pointer"
+              style={{
+                backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23475569'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E")`,
+                backgroundPosition: "right 0.75rem center",
+                backgroundRepeat: "no-repeat",
+                backgroundSize: "1.5em 1.5em",
+              }}
             >
               <option value="">Select availability</option>
               <option value="full-time">Full-time (40 hrs/week)</option>
@@ -1139,7 +1207,13 @@ const WebDesignerForm = ({ formData, onChange }) => {
               required
               value={formData.englishLevel || ""}
               onChange={onChange}
-              className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-[#004F7F] dark:focus:ring-[#ECC600] focus:border-transparent transition-colors"
+              className="w-full px-4 py-3 pr-10 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-[#004F7F] dark:focus:ring-[#ECC600] focus:border-transparent transition-colors appearance-none cursor-pointer"
+              style={{
+                backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23475569'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E")`,
+                backgroundPosition: "right 0.75rem center",
+                backgroundRepeat: "no-repeat",
+                backgroundSize: "1.5em 1.5em",
+              }}
             >
               <option value="">Select level</option>
               <option value="native">Native</option>
@@ -1232,7 +1306,13 @@ const WebDesignerForm = ({ formData, onChange }) => {
               required
               value={formData.htmlCss || ""}
               onChange={onChange}
-              className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-[#004F7F] dark:focus:ring-[#ECC600] focus:border-transparent transition-colors"
+              className="w-full px-4 py-3 pr-10 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-[#004F7F] dark:focus:ring-[#ECC600] focus:border-transparent transition-colors appearance-none cursor-pointer"
+              style={{
+                backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23475569'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E")`,
+                backgroundPosition: "right 0.75rem center",
+                backgroundRepeat: "no-repeat",
+                backgroundSize: "1.5em 1.5em",
+              }}
             >
               <option value="">Select option</option>
               <option value="proficient">Yes, proficient</option>
@@ -1250,7 +1330,13 @@ const WebDesignerForm = ({ formData, onChange }) => {
               required
               value={formData.projectsCompleted || ""}
               onChange={onChange}
-              className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-[#004F7F] dark:focus:ring-[#ECC600] focus:border-transparent transition-colors"
+              className="w-full px-4 py-3 pr-10 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-[#004F7F] dark:focus:ring-[#ECC600] focus:border-transparent transition-colors appearance-none cursor-pointer"
+              style={{
+                backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23475569'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E")`,
+                backgroundPosition: "right 0.75rem center",
+                backgroundRepeat: "no-repeat",
+                backgroundSize: "1.5em 1.5em",
+              }}
             >
               <option value="">Select range</option>
               <option value="1-5">1-5</option>
@@ -1312,7 +1398,13 @@ const WebDesignerForm = ({ formData, onChange }) => {
               required
               value={formData.startDate || ""}
               onChange={onChange}
-              className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-[#004F7F] dark:focus:ring-[#ECC600] focus:border-transparent transition-colors"
+              className="w-full px-4 py-3 pr-10 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-[#004F7F] dark:focus:ring-[#ECC600] focus:border-transparent transition-colors appearance-none cursor-pointer"
+              style={{
+                backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23475569'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E")`,
+                backgroundPosition: "right 0.75rem center",
+                backgroundRepeat: "no-repeat",
+                backgroundSize: "1.5em 1.5em",
+              }}
             >
               <option value="">Select timeframe</option>
               <option value="immediately">Immediately</option>
@@ -1517,7 +1609,13 @@ const WebDeveloperForm = ({ formData, onChange }) => {
               required
               value={formData.experience || ""}
               onChange={onChange}
-              className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-[#004F7F] dark:focus:ring-[#ECC600] focus:border-transparent transition-colors"
+              className="w-full px-4 py-3 pr-10 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-[#004F7F] dark:focus:ring-[#ECC600] focus:border-transparent transition-colors appearance-none cursor-pointer"
+              style={{
+                backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23475569'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E")`,
+                backgroundPosition: "right 0.75rem center",
+                backgroundRepeat: "no-repeat",
+                backgroundSize: "1.5em 1.5em",
+              }}
             >
               <option value="">Select years</option>
               <option value="0-1">0-1 years</option>
@@ -1536,7 +1634,13 @@ const WebDeveloperForm = ({ formData, onChange }) => {
               required
               value={formData.developerType || ""}
               onChange={onChange}
-              className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-[#004F7F] dark:focus:ring-[#ECC600] focus:border-transparent transition-colors"
+              className="w-full px-4 py-3 pr-10 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-[#004F7F] dark:focus:ring-[#ECC600] focus:border-transparent transition-colors appearance-none cursor-pointer"
+              style={{
+                backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23475569'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E")`,
+                backgroundPosition: "right 0.75rem center",
+                backgroundRepeat: "no-repeat",
+                backgroundSize: "1.5em 1.5em",
+              }}
             >
               <option value="">Select type</option>
               <option value="frontend">Frontend Developer</option>
@@ -1556,7 +1660,13 @@ const WebDeveloperForm = ({ formData, onChange }) => {
               required
               value={formData.employmentStatus || ""}
               onChange={onChange}
-              className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-[#004F7F] dark:focus:ring-[#ECC600] focus:border-transparent transition-colors"
+              className="w-full px-4 py-3 pr-10 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-[#004F7F] dark:focus:ring-[#ECC600] focus:border-transparent transition-colors appearance-none cursor-pointer"
+              style={{
+                backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23475569'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E")`,
+                backgroundPosition: "right 0.75rem center",
+                backgroundRepeat: "no-repeat",
+                backgroundSize: "1.5em 1.5em",
+              }}
             >
               <option value="">Select status</option>
               <option value="employed">Employed</option>
@@ -1575,7 +1685,13 @@ const WebDeveloperForm = ({ formData, onChange }) => {
               required
               value={formData.availability || ""}
               onChange={onChange}
-              className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-[#004F7F] dark:focus:ring-[#ECC600] focus:border-transparent transition-colors"
+              className="w-full px-4 py-3 pr-10 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-[#004F7F] dark:focus:ring-[#ECC600] focus:border-transparent transition-colors appearance-none cursor-pointer"
+              style={{
+                backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23475569'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E")`,
+                backgroundPosition: "right 0.75rem center",
+                backgroundRepeat: "no-repeat",
+                backgroundSize: "1.5em 1.5em",
+              }}
             >
               <option value="">Select availability</option>
               <option value="full-time">Full-time (40 hrs/week)</option>
@@ -1594,7 +1710,13 @@ const WebDeveloperForm = ({ formData, onChange }) => {
             required
             value={formData.englishLevel || ""}
             onChange={onChange}
-            className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-[#004F7F] dark:focus:ring-[#ECC600] focus:border-transparent transition-colors"
+            className="w-full px-4 py-3 pr-10 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-[#004F7F] dark:focus:ring-[#ECC600] focus:border-transparent transition-colors appearance-none cursor-pointer"
+            style={{
+              backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23475569'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E")`,
+              backgroundPosition: "right 0.75rem center",
+              backgroundRepeat: "no-repeat",
+              backgroundSize: "1.5em 1.5em",
+            }}
           >
             <option value="">Select level</option>
             <option value="native">Native</option>
@@ -1748,7 +1870,13 @@ const WebDeveloperForm = ({ formData, onChange }) => {
             required
             value={formData.projectsCompleted || ""}
             onChange={onChange}
-            className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-[#004F7F] dark:focus:ring-[#ECC600] focus:border-transparent transition-colors"
+            className="w-full px-4 py-3 pr-10 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-[#004F7F] dark:focus:ring-[#ECC600] focus:border-transparent transition-colors appearance-none cursor-pointer"
+            style={{
+              backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23475569'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E")`,
+              backgroundPosition: "right 0.75rem center",
+              backgroundRepeat: "no-repeat",
+              backgroundSize: "1.5em 1.5em",
+            }}
           >
             <option value="">Select range</option>
             <option value="1-5">1-5</option>
@@ -1808,7 +1936,13 @@ const WebDeveloperForm = ({ formData, onChange }) => {
               required
               value={formData.startDate || ""}
               onChange={onChange}
-              className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-[#004F7F] dark:focus:ring-[#ECC600] focus:border-transparent transition-colors"
+              className="w-full px-4 py-3 pr-10 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-[#004F7F] dark:focus:ring-[#ECC600] focus:border-transparent transition-colors appearance-none cursor-pointer"
+              style={{
+                backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23475569'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E")`,
+                backgroundPosition: "right 0.75rem center",
+                backgroundRepeat: "no-repeat",
+                backgroundSize: "1.5em 1.5em",
+              }}
             >
               <option value="">Select timeframe</option>
               <option value="immediately">Immediately</option>
