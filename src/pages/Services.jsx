@@ -1,36 +1,41 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useTheme } from "../ThemeContext";
 import blackHeroImg from "../images/blackHero.jpg";
 import whiteHeroImg from "../images/whiteHero.jpg";
 
 const Services = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const { isDark } = useTheme();
-  const [selectedService, setSelectedService] = useState("Virtual Assistants");
-  const [selectedPricing, setSelectedPricing] = useState("Full-Time");
+  const [selectedPricing, setSelectedPricing] = useState("Part-Time");
+  const [selectedWebProject, setSelectedWebProject] =
+    useState("Business Website");
 
-  const handleServiceCardClick = (serviceName) => {
-    setSelectedService(serviceName);
-  };
+  // SCROLL HANDLER - MOVED UP
+  useEffect(() => {
+    if (location.state?.scrollTo) {
+      setTimeout(() => {
+        const element = document.getElementById(location.state.scrollTo);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }, 300);
+    }
+  }, [location]);
 
   const handlePricingCardClick = (planName) => {
     setSelectedPricing(planName);
   };
 
-  const handleRequestTalent = (serviceName, price) => {
-    navigate("/contact", {
-      state: {
-        service: serviceName,
-        estimatedPrice: price,
-        source: "services_page",
-      },
-    });
+  const handleWebProjectCardClick = (projectName) => {
+    setSelectedWebProject(projectName);
   };
 
   const handlePricingSelect = (planName, price) => {
     navigate("/contact", {
       state: {
+        service: "Virtual Assistants",
         plan: planName,
         estimatedPrice: price,
         source: "pricing_section",
@@ -38,11 +43,32 @@ const Services = () => {
     });
   };
 
+  const handleWebProjectSelect = (serviceName, price) => {
+    navigate("/contact", {
+      state: {
+        service: serviceName,
+        estimatedPrice: price,
+        source: "web_pricing",
+      },
+    });
+  };
+
+  const scrollToVAPricing = () => {
+    document
+      .getElementById("va-pricing")
+      ?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  const scrollToWebPricing = () => {
+    document
+      .getElementById("web-pricing")
+      ?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <main className="w-full">
-      {/* Hero Section with Background Images */}
+      {/* Hero Section */}
       <section className="relative flex flex-col items-center justify-center min-h-[60vh] p-6 text-center transition-colors duration-300 overflow-hidden">
-        {/* Background Image */}
         <div className="absolute inset-0 z-0">
           <img
             src={isDark ? blackHeroImg : whiteHeroImg}
@@ -50,8 +76,6 @@ const Services = () => {
             className="w-full h-full object-cover"
           />
         </div>
-
-        {/* Gradient fade-out at bottom */}
         <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white to-transparent dark:from-slate-900 z-10"></div>
 
         <div className="max-w-4xl mx-auto pt-32 pb-16 relative z-20">
@@ -70,7 +94,7 @@ const Services = () => {
         </div>
       </section>
 
-      {/* Our Core Services Section */}
+      {/* Our Core Services Section - 2 CARDS */}
       <section
         id="core-services"
         className="bg-white dark:bg-slate-900 py-24 px-6 transition-colors duration-300"
@@ -85,14 +109,19 @@ const Services = () => {
           </p>
         </div>
 
-        {/* Service Cards Grid */}
-        <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+        {/* 2 BIG SERVICE CARDS */}
+        <div className="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
           {/* Virtual Assistants Card */}
-          <ServiceCard
-            badge="Most Popular"
-            icon={
+          <div className="relative rounded-2xl p-8 bg-white dark:bg-slate-900 border-2 border-[#004F7F] dark:border-[#ECC600] hover:shadow-xl transition-all duration-300 cursor-pointer group">
+            <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+              <span className="bg-[#ECC600] dark:bg-[#004F7F] text-[#004F7F] dark:text-[#ECC600] text-xs font-bold px-4 py-1 rounded-full">
+                MOST POPULAR
+              </span>
+            </div>
+
+            <div className="flex justify-center mb-6 text-[#004F7F] dark:text-[#ECC600]">
               <svg
-                className="w-12 h-12"
+                className="w-16 h-16"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -104,63 +133,62 @@ const Services = () => {
                   d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
                 />
               </svg>
-            }
-            title="Virtual Assistants"
-            description="Professional administrative support to handle your day-to-day operations, customer service, and back-office tasks with precision."
-            features={[
-              "Email & calendar management",
-              "Customer support & CRM",
-              "Data entry & research",
-              "Social media coordination",
-            ]}
-            price="$1,200"
-            priceSubtext="per month"
-            isSelected={selectedService === "Virtual Assistants"}
-            onClick={() => handleServiceCardClick("Virtual Assistants")}
-            onRequestTalent={() =>
-              handleRequestTalent("Virtual Assistants", "$1,200")
-            }
-          />
+            </div>
 
-          {/* Web Designers Card */}
-          <ServiceCard
-            icon={
-              <svg
-                className="w-12 h-12"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"
-                />
-              </svg>
-            }
-            title="Web Designers"
-            description="Creative design experts who craft stunning, user-centered digital experiences that elevate your brand and drive conversions."
-            features={[
-              "UI/UX design & prototyping",
-              "Responsive web design",
-              "Brand identity & graphics",
-              "Landing page generation",
-            ]}
-            price="$2,800"
-            priceSubtext="per month"
-            isSelected={selectedService === "Web Designers"}
-            onClick={() => handleServiceCardClick("Web Designers")}
-            onRequestTalent={() =>
-              handleRequestTalent("Web Designers", "$2,800")
-            }
-          />
+            <h3 className="text-3xl font-bold mb-3 text-slate-900 dark:text-white text-center">
+              Virtual Assistants
+            </h3>
 
-          {/* Web Developers Card */}
-          <ServiceCard
-            icon={
+            <p className="mb-6 leading-relaxed text-slate-600 dark:text-slate-400 text-center">
+              Professional administrative support to handle your day-to-day
+              operations, customer service, and back-office tasks with
+              precision.
+            </p>
+
+            <ul className="space-y-3 mb-8">
+              {[
+                "Email & calendar management",
+                "Customer support & CRM",
+                "Data entry & research",
+                "Social media coordination",
+              ].map((feature, i) => (
+                <li
+                  key={i}
+                  className="flex items-center gap-3 text-slate-700 dark:text-slate-300"
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#004F7F] dark:bg-[#ECC600]" />
+                  {feature}
+                </li>
+              ))}
+            </ul>
+
+            <div className="border-t border-slate-200 dark:border-slate-700 pt-6 mb-6">
+              <div className="text-sm font-semibold mb-1 text-slate-900 dark:text-slate-300 text-center">
+                STARTING AT
+              </div>
+              <div className="flex items-end gap-2 justify-center">
+                <span className="text-4xl font-bold text-slate-900 dark:text-white">
+                  $900
+                </span>
+                <span className="text-sm mb-1 opacity-80 text-slate-600 dark:text-slate-300">
+                  per month
+                </span>
+              </div>
+            </div>
+
+            <button
+              onClick={scrollToVAPricing}
+              className="relative w-full py-3 rounded-full font-bold bg-[#004F7F] dark:bg-[#ECC600] text-white dark:text-[#004F7F] hover:opacity-90 transition-all"
+            >
+              View VA Pricing
+            </button>
+          </div>
+
+          {/* Web Solutions Card */}
+          <div className="relative rounded-2xl p-8 bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 hover:shadow-xl hover:border-[#004F7F]/30 dark:hover:border-[#ECC600]/30 transition-all duration-300 cursor-pointer group">
+            <div className="flex justify-center mb-6 text-[#004F7F] dark:text-[#ECC600]">
               <svg
-                className="w-12 h-12"
+                className="w-16 h-16"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -172,23 +200,56 @@ const Services = () => {
                   d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
                 />
               </svg>
-            }
-            title="Web Developers"
-            description="Skilled developers who build scalable web applications with clean code and cutting-edge technologies."
-            features={[
-              "Full-stack development",
-              "Custom web applications",
-              "E-commerce solutions",
-              "API integration & maintenance",
-            ]}
-            price="$3,500"
-            priceSubtext="per month"
-            isSelected={selectedService === "Web Developers"}
-            onClick={() => handleServiceCardClick("Web Developers")}
-            onRequestTalent={() =>
-              handleRequestTalent("Web Developers", "$3,500")
-            }
-          />
+            </div>
+
+            <h3 className="text-3xl font-bold mb-3 text-slate-900 dark:text-white text-center">
+              Web Solutions
+            </h3>
+
+            <p className="mb-6 leading-relaxed text-slate-600 dark:text-slate-400 text-center">
+              Complete web design and development services. From landing pages
+              to full e-commerce stores, we build stunning websites that
+              convert.
+            </p>
+
+            <ul className="space-y-3 mb-8">
+              {[
+                "UI/UX design & prototyping",
+                "Full-stack development",
+                "E-commerce solutions",
+                "Website maintenance & support",
+              ].map((feature, i) => (
+                <li
+                  key={i}
+                  className="flex items-center gap-3 text-slate-700 dark:text-slate-300"
+                >
+                  <span className="w-1.5 h-1.5 rounded-full bg-[#004F7F] dark:bg-[#ECC600]" />
+                  {feature}
+                </li>
+              ))}
+            </ul>
+
+            <div className="border-t border-slate-200 dark:border-slate-700 pt-6 mb-6">
+              <div className="text-sm font-semibold mb-1 text-slate-900 dark:text-slate-300 text-center">
+                STARTING AT
+              </div>
+              <div className="flex items-end gap-2 justify-center">
+                <span className="text-4xl font-bold text-slate-900 dark:text-white">
+                  $1,500
+                </span>
+                <span className="text-sm mb-1 opacity-80 text-slate-600 dark:text-slate-300">
+                  per project
+                </span>
+              </div>
+            </div>
+
+            <button
+              onClick={scrollToWebPricing}
+              className="relative w-full py-3 rounded-full font-bold bg-[#004F7F] dark:bg-[#ECC600] text-white dark:text-[#004F7F] hover:opacity-90 transition-all"
+            >
+              View Web Packages
+            </button>
+          </div>
         </div>
       </section>
 
@@ -295,7 +356,7 @@ const Services = () => {
           </p>
         </div>
 
-        <div className="grid md:grid-cols-4 gap-8 max-w-6xl mx-auto ">
+        <div className="grid md:grid-cols-4 gap-8 max-w-6xl mx-auto">
           <ProcessStep
             number="1"
             title="Tell Us Your Needs"
@@ -319,29 +380,49 @@ const Services = () => {
         </div>
       </section>
 
-      {/* Flexible Engagement Models */}
-      <section className="bg-slate-50 dark:bg-slate-800 py-24 px-6 transition-colors duration-300">
+      {/* Virtual Assistant Pricing */}
+      <section
+        id="va-pricing"
+        className="bg-slate-50 dark:bg-slate-800 py-24 px-6 transition-colors duration-300"
+      >
         <div className="max-w-6xl mx-auto text-center mb-16">
           <h2 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4">
-            Flexible Engagement Models
+            Virtual Assistant Pricing
           </h2>
           <p className="text-slate-600 dark:text-slate-400 text-lg max-w-2xl mx-auto">
             Choose the engagement model that works best for your business needs
           </p>
         </div>
 
-        <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          {/* Part-Time Plan */}
+        <div className="grid md:grid-cols-4 gap-8 max-w-6xl mx-auto">
           <PricingCard
+            title="Starter"
+            subtitle="10 hours per week"
+            price="$900"
+            period="per month"
+            features={[
+              "10 hours per week",
+              "1 dedicated VA",
+              "Email management",
+              "Monthly reporting",
+            ]}
+            buttonText="Get Started"
+            isSelected={selectedPricing === "Starter"}
+            onClick={() => handlePricingCardClick("Starter")}
+            onButtonClick={() => handlePricingSelect("Starter", "$900")}
+          />
+
+          <PricingCard
+            badge="POPULAR"
             title="Part-Time"
             subtitle="20 hours per week"
             price="$1,500"
             period="per month"
             features={[
               "20 hours per week",
-              "Dedicated talent",
-              "Account manager",
-              "Monthly reporting",
+              "1 dedicated VA",
+              "All Starter features",
+              "CRM updates",
             ]}
             buttonText="Get Started"
             isSelected={selectedPricing === "Part-Time"}
@@ -349,16 +430,14 @@ const Services = () => {
             onButtonClick={() => handlePricingSelect("Part-Time", "$1,500")}
           />
 
-          {/* Full-Time Plan */}
           <PricingCard
-            badge="BEST VALUE"
             title="Full-Time"
             subtitle="40 hours per week"
             price="$2,800"
             period="per month"
             features={[
               "40 hours per week",
-              "Dedicated talent",
+              "1 dedicated VA",
               "Priority support",
               "Weekly reporting",
               "Free replacement",
@@ -369,15 +448,14 @@ const Services = () => {
             onButtonClick={() => handlePricingSelect("Full-Time", "$2,800")}
           />
 
-          {/* Enterprise Plan */}
           <PricingCard
             title="Enterprise"
             subtitle="Multiple team members"
             price="Custom"
             features={[
-              "Multiple talents",
+              "Multiple VAs",
               "Custom hours",
-              "Dedicated SLAs",
+              "Dedicated manager",
               "Volume discounts",
             ]}
             buttonText="Contact Sales"
@@ -385,6 +463,90 @@ const Services = () => {
             onClick={() => handlePricingCardClick("Enterprise")}
             onButtonClick={() => handlePricingSelect("Enterprise", "Custom")}
           />
+        </div>
+      </section>
+
+      {/* Web Design & Development Pricing */}
+      <section
+        id="web-pricing"
+        className="bg-white dark:bg-slate-900 py-24 px-6 transition-colors duration-300"
+      >
+        <div className="max-w-6xl mx-auto text-center mb-16">
+          <h2 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4">
+            Web Design & Development
+          </h2>
+          <p className="text-slate-600 dark:text-slate-400 text-lg max-w-2xl mx-auto">
+            Professional web solutions with clear deliverables and timelines
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          {/* Landing Page */}
+          <WebProjectCard
+            title="Landing Page"
+            subtitle="Single page, conversion-focused"
+            price="$1,500"
+            features={[
+              "1 page design",
+              "Mobile responsive",
+              "Contact form",
+              "2 revisions",
+              "7-day delivery",
+            ]}
+            isSelected={selectedWebProject === "Landing Page"}
+            onClick={() => handleWebProjectCardClick("Landing Page")}
+            onButtonClick={() =>
+              handleWebProjectSelect("Landing Page", "$1,500")
+            }
+          />
+
+          {/* Business Website */}
+          <WebProjectCard
+            badge="MOST POPULAR"
+            title="Business Website"
+            subtitle="Full multi-page website"
+            price="$3,500"
+            features={[
+              "5-7 pages",
+              "CMS (WordPress)",
+              "SEO ready",
+              "Contact forms",
+              "3 revisions",
+              "14-day delivery",
+            ]}
+            isSelected={selectedWebProject === "Business Website"}
+            onClick={() => handleWebProjectCardClick("Business Website")}
+            onButtonClick={() =>
+              handleWebProjectSelect("Business Website", "$3,500")
+            }
+          />
+
+          {/* E-Commerce Store */}
+          <WebProjectCard
+            title="E-Commerce Store"
+            subtitle="Full online store solution"
+            price="$5,500"
+            features={[
+              "Product catalog",
+              "Shopping cart",
+              "Payment gateway",
+              "Admin panel",
+              "4 revisions",
+              "30-day delivery",
+            ]}
+            isSelected={selectedWebProject === "E-Commerce Store"}
+            onClick={() => handleWebProjectCardClick("E-Commerce Store")}
+            onButtonClick={() =>
+              handleWebProjectSelect("E-Commerce Store", "$5,500")
+            }
+          />
+        </div>
+
+        <div className="text-center mt-12">
+          <p className="text-slate-600 dark:text-slate-400">
+            <span className="font-semibold">Website Maintenance:</span>{" "}
+            $250-500/month
+          </p>
         </div>
       </section>
 
@@ -411,171 +573,15 @@ const Services = () => {
             }}
           >
             <div className="absolute inset-0 bg-white dark:bg-[#ECC600]"></div>
-
             <div
               className="absolute inset-0 bg-[#ECC600] dark:bg-white transition-all duration-700 ease-out button-fill"
               style={{ transform: "translateY(100%)" }}
             />
-
             <span className="relative z-10 text-[#004F7F]">Contact Us Now</span>
           </button>
         </div>
       </section>
     </main>
-  );
-};
-
-// Service Card Component
-const ServiceCard = ({
-  badge,
-  icon,
-  title,
-  description,
-  features,
-  price,
-  priceSubtext,
-  isSelected,
-  onClick,
-  onRequestTalent,
-}) => {
-  const [isHovered, setIsHovered] = useState(false);
-
-  return (
-    <div
-      onClick={onClick}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      className={`relative rounded-2xl p-8 transition-all duration-300 hover:shadow-xl cursor-pointer group ${
-        isSelected
-          ? "bg-[#004F7F] dark:bg-[#ECC600] text-white dark:text-[#004F7F] border-2 border-[#004F7F] dark:border-[#ECC600] transform scale-105"
-          : "bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 hover:border-[#004F7F]/30 dark:hover:border-[#ECC600]/30"
-      }`}
-    >
-      {/* Show badge if it exists */}
-      {badge && (
-        <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-          <span className="bg-[#ECC600] dark:bg-[#004F7F] text-[#004F7F] dark:text-[#ECC600] text-xs font-bold px-4 py-1 rounded-full">
-            {badge}
-          </span>
-        </div>
-      )}
-
-      <div
-        className={`flex justify-center mb-6 ${
-          isSelected
-            ? "text-white dark:text-[#004F7F]"
-            : "text-[#004F7F] dark:text-[#ECC600]"
-        }`}
-      >
-        {icon}
-      </div>
-
-      <h3
-        className={`text-2xl font-bold mb-3 ${
-          isSelected ? "" : "text-slate-900 dark:text-white"
-        }`}
-      >
-        {title}
-      </h3>
-
-      <p
-        className={`mb-6 leading-relaxed ${
-          isSelected
-            ? "text-white/90 dark:text-[#004F7F]/90"
-            : "text-slate-600 dark:text-slate-400"
-        }`}
-      >
-        {description}
-      </p>
-
-      <ul className="space-y-3 mb-8">
-        {features.map((feature, i) => (
-          <li
-            key={i}
-            className={`flex items-center gap-3 ${
-              isSelected ? "" : "text-slate-700 dark:text-slate-300"
-            }`}
-          >
-            <span
-              className={`w-1.5 h-1.5 rounded-full ${
-                isSelected
-                  ? "bg-white dark:bg-[#004F7F]"
-                  : "bg-[#004F7F] dark:bg-[#ECC600]"
-              }`}
-            />
-            {feature}
-          </li>
-        ))}
-      </ul>
-
-      <div
-        className={`border-t ${
-          isSelected
-            ? "border-white/20 dark:border-[#004F7F]/20"
-            : "border-slate-200 dark:border-slate-700"
-        } pt-6 mb-6`}
-      >
-        <div
-          className={`text-sm font-semibold mb-1 ${
-            isSelected ? "" : "text-slate-900 dark:text-slate-300"
-          }`}
-        >
-          STARTING AT
-        </div>
-        <div className="flex items-end gap-2">
-          <span
-            className={`text-4xl font-bold ${
-              isSelected ? "" : "text-slate-900 dark:text-white"
-            }`}
-          >
-            {price}
-          </span>
-          <span
-            className={`text-sm mb-1 opacity-80 ${
-              isSelected ? "" : "text-slate-600 dark:text-slate-300"
-            }`}
-          >
-            {priceSubtext}
-          </span>
-        </div>
-      </div>
-      <button
-        onClick={(e) => {
-          e.stopPropagation();
-          onRequestTalent();
-        }}
-        className={`relative w-full py-3 rounded-full font-bold overflow-hidden transition-all duration-300 group-hover:scale-105 ${
-          isHovered ? "scale-105" : ""
-        }`}
-      >
-        <div
-          className={`absolute inset-0 ${
-            isSelected
-              ? "bg-white dark:bg-[#004F7F]"
-              : "bg-[#004F7F] dark:bg-[#ECC600]"
-          }`}
-        ></div>
-        <div
-          className={`absolute inset-0 transition-all duration-700 ease-out ${
-            isSelected
-              ? "bg-[#ECC600] dark:bg-white"
-              : "bg-[#ECC600] dark:bg-white"
-          }`}
-          style={{
-            transform: isHovered ? "translateY(0%)" : "translateY(100%)",
-          }}
-        />
-        <span
-          className={`relative z-10 ${
-            isSelected
-              ? "text-[#004F7F] dark:text-[#ECC600]"
-              : "text-white dark:text-[#004F7F]"
-          }`}
-        >
-          Request Talent
-        </span>
-      </button>
-    </div>
   );
 };
 
@@ -619,7 +625,7 @@ const ProcessStep = ({ number, title, description }) => {
   );
 };
 
-// Pricing Card Component
+// Pricing Card Component (for VA pricing)
 const PricingCard = ({
   badge,
   title,
@@ -645,7 +651,6 @@ const PricingCard = ({
           : "bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 hover:border-[#004F7F]/30 dark:hover:border-[#ECC600]/30"
       }`}
     >
-      {/* Show badge if it exists */}
       {badge && (
         <div className="absolute -top-3 left-1/2 -translate-x-1/2">
           <span className="bg-[#ECC600] dark:bg-[#004F7F] text-[#004F7F] dark:text-[#ECC600] text-xs font-bold px-4 py-1 rounded-full">
@@ -655,19 +660,13 @@ const PricingCard = ({
       )}
 
       <h3
-        className={`text-2xl font-bold mb-2 ${
-          isSelected ? "" : "text-slate-900 dark:text-white"
-        }`}
+        className={`text-2xl font-bold mb-2 ${isSelected ? "" : "text-slate-900 dark:text-white"}`}
       >
         {title}
       </h3>
 
       <p
-        className={`mb-6 text-sm ${
-          isSelected
-            ? "text-white/80 dark:text-[#004F7F]/80"
-            : "text-slate-600 dark:text-slate-400"
-        }`}
+        className={`mb-6 text-sm ${isSelected ? "text-white/80 dark:text-[#004F7F]/80" : "text-slate-600 dark:text-slate-400"}`}
       >
         {subtitle}
       </p>
@@ -675,17 +674,13 @@ const PricingCard = ({
       <div className="mb-6">
         <div className="flex items-end gap-2">
           <span
-            className={`text-4xl font-bold ${
-              isSelected ? "" : "text-slate-900 dark:text-white"
-            }`}
+            className={`text-4xl font-bold ${isSelected ? "" : "text-slate-900 dark:text-white"}`}
           >
             {price}
           </span>
           {period && (
             <span
-              className={`text-sm mb-1 opacity-80 ${
-                isSelected ? "" : "text-slate-600 dark:text-slate-300"
-              }`}
+              className={`text-sm mb-1 opacity-80 ${isSelected ? "" : "text-slate-600 dark:text-slate-300"}`}
             >
               {period}
             </span>
@@ -697,16 +692,10 @@ const PricingCard = ({
         {features.map((feature, i) => (
           <li
             key={i}
-            className={`flex items-center gap-3 ${
-              isSelected ? "" : "text-slate-700 dark:text-slate-300"
-            }`}
+            className={`flex items-center gap-3 ${isSelected ? "" : "text-slate-700 dark:text-slate-300"}`}
           >
             <svg
-              className={`w-5 h-5 ${
-                isSelected
-                  ? "text-white dark:text-[#004F7F]"
-                  : "text-[#004F7F] dark:text-[#ECC600]"
-              }`}
+              className={`w-5 h-5 ${isSelected ? "text-white dark:text-[#004F7F]" : "text-[#004F7F] dark:text-[#ECC600]"}`}
               fill="none"
               stroke="currentColor"
               viewBox="0 0 24 24"
@@ -733,11 +722,7 @@ const PricingCard = ({
         }`}
       >
         <div
-          className={`absolute inset-0 ${
-            isSelected
-              ? "bg-white dark:bg-[#004F7F]"
-              : "bg-[#004F7F] dark:bg-[#ECC600]"
-          }`}
+          className={`absolute inset-0 ${isSelected ? "bg-white dark:bg-[#004F7F]" : "bg-[#004F7F] dark:bg-[#ECC600]"}`}
         ></div>
         <div
           className={`absolute inset-0 transition-all duration-700 ease-out ${
@@ -750,13 +735,119 @@ const PricingCard = ({
           }}
         />
         <span
-          className={`relative z-10 ${
-            isSelected
-              ? "text-[#004F7F] dark:text-[#ECC600]"
-              : "text-white dark:text-[#004F7F]"
-          }`}
+          className={`relative z-10 ${isSelected ? "text-[#004F7F] dark:text-[#ECC600]" : "text-white dark:text-[#004F7F]"}`}
         >
           {buttonText}
+        </span>
+      </button>
+    </div>
+  );
+};
+
+// Web Project Card Component - FIXED TO WORK LIKE VA PRICING
+const WebProjectCard = ({
+  badge,
+  title,
+  subtitle,
+  price,
+  features,
+  isSelected,
+  onClick,
+  onButtonClick,
+}) => {
+  const [isHovered, setIsHovered] = useState(false);
+
+  return (
+    <div
+      onClick={onClick}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      className={`relative rounded-2xl p-8 transition-all duration-300 hover:shadow-xl cursor-pointer group ${
+        isSelected
+          ? "bg-[#004F7F] dark:bg-[#ECC600] text-white dark:text-[#004F7F] border-2 border-[#004F7F] dark:border-[#ECC600] transform scale-105"
+          : "bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 hover:border-[#004F7F]/30 dark:hover:border-[#ECC600]/30"
+      }`}
+    >
+      {badge && (
+        <div className="absolute -top-3 left-1/2 -translate-x-1/2">
+          <span className="bg-[#ECC600] dark:bg-[#004F7F] text-[#004F7F] dark:text-[#ECC600] text-xs font-bold px-4 py-1 rounded-full">
+            {badge}
+          </span>
+        </div>
+      )}
+
+      <h3
+        className={`text-2xl font-bold mb-2 ${isSelected ? "" : "text-slate-900 dark:text-white"}`}
+      >
+        {title}
+      </h3>
+
+      <p
+        className={`mb-6 text-sm ${isSelected ? "text-white/80 dark:text-[#004F7F]/80" : "text-slate-600 dark:text-slate-400"}`}
+      >
+        {subtitle}
+      </p>
+
+      <div className="mb-6">
+        <div className="flex items-end gap-2">
+          <span
+            className={`text-4xl font-bold ${isSelected ? "" : "text-slate-900 dark:text-white"}`}
+          >
+            {price}
+          </span>
+        </div>
+      </div>
+
+      <ul className="space-y-3 mb-8">
+        {features.map((feature, i) => (
+          <li
+            key={i}
+            className={`flex items-center gap-3 ${isSelected ? "" : "text-slate-700 dark:text-slate-300"}`}
+          >
+            <svg
+              className={`w-5 h-5 ${isSelected ? "text-white dark:text-[#004F7F]" : "text-[#004F7F] dark:text-[#ECC600]"}`}
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M5 13l4 4L19 7"
+              />
+            </svg>
+            {feature}
+          </li>
+        ))}
+      </ul>
+
+      <button
+        onClick={(e) => {
+          e.stopPropagation();
+          onButtonClick();
+        }}
+        className={`relative w-full py-3 rounded-full font-bold overflow-hidden transition-all duration-300 group-hover:scale-105 ${
+          isHovered ? "scale-105" : ""
+        }`}
+      >
+        <div
+          className={`absolute inset-0 ${isSelected ? "bg-white dark:bg-[#004F7F]" : "bg-[#004F7F] dark:bg-[#ECC600]"}`}
+        ></div>
+        <div
+          className={`absolute inset-0 transition-all duration-700 ease-out ${
+            isSelected
+              ? "bg-[#ECC600] dark:bg-white"
+              : "bg-[#ECC600] dark:bg-white"
+          }`}
+          style={{
+            transform: isHovered ? "translateY(0%)" : "translateY(100%)",
+          }}
+        />
+        <span
+          className={`relative z-10 ${isSelected ? "text-[#004F7F] dark:text-[#ECC600]" : "text-white dark:text-[#004F7F]"}`}
+        >
+          Get Started
         </span>
       </button>
     </div>

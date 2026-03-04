@@ -6,18 +6,22 @@ const Toast = ({ message, type, onClose }) => {
   React.useEffect(() => {
     const timer = setTimeout(() => {
       onClose();
-    }, 3500);
+    }, 2000);
     return () => clearTimeout(timer);
   }, [onClose]);
 
   return (
     <div
-      className={`fixed top-6 left-1/2 z-[9999] z-50 px-6 py-4 rounded-lg shadow-lg flex items-center gap-3 animate-slide-down ${
+      className={`fixed z-[9999] px-6 py-4 rounded-lg shadow-lg flex items-center gap-3 animate-slide-down ${
         type === "success"
           ? "bg-green-500 dark:bg-green-600"
           : "bg-red-500 dark:bg-red-600"
       }`}
-      style={{ willChange: "transform" }}
+      style={{
+        top: "2rem",
+        left: "50%",
+        transform: "translateX(-50%)",
+      }}
     >
       <span className="text-white text-sm font-medium">{message}</span>
       <button
@@ -74,12 +78,15 @@ const Contact = () => {
 
   // Price mapping for calculations
   const priceMap = {
-    "Virtual Assistants": 1200,
-    "Web Designers": 2800,
-    "Web Developers": 3500,
+    "Virtual Assistants": 900,
+    Starter: 900,
     "Part-Time": 1500,
     "Full-Time": 2800,
     Enterprise: 0,
+    "Landing Page": 1500,
+    "Business Website": 3500,
+    "E-Commerce Store": 5500,
+    "Website Maintenance": 375,
   };
 
   // Extract prefill data from location state
@@ -94,19 +101,15 @@ const Contact = () => {
         source: prefillData.source || "",
       });
 
-      // Auto-populate form with prefill data
       let calculatedPrice = "";
 
       if (prefillData.service && prefillData.plan) {
-        // Both service and plan selected
         const servicePrice = priceMap[prefillData.service] || 0;
         const planPrice = priceMap[prefillData.plan] || 0;
         calculatedPrice = `$${servicePrice + planPrice}/month`;
       } else if (prefillData.service) {
-        // Only service selected
         calculatedPrice = `$${priceMap[prefillData.service] || "TBD"}/month`;
       } else if (prefillData.plan) {
-        // Only plan selected
         calculatedPrice =
           prefillData.plan === "Enterprise"
             ? "Custom Quote"
@@ -135,18 +138,40 @@ const Contact = () => {
 
     let price = 0;
     let description = "";
+    let priceText = "";
+
+    const isWebProject = [
+      "Landing Page",
+      "Business Website",
+      "E-Commerce Store",
+    ].includes(formData.service);
+    const isMaintenance = formData.service === "Website Maintenance";
 
     if (formData.service && formData.plan) {
-      const servicePrice = priceMap[formData.service] || 0;
-      const planPrice = priceMap[formData.plan] || 0;
-      price = servicePrice + planPrice;
-      description = `${formData.service} (${formData.plan})`;
+      if (formData.service === "Virtual Assistants") {
+        price = priceMap[formData.plan] || 0;
+        description = `Virtual Assistant (${formData.plan})`;
+        priceText = `$${price}/month`;
+      } else {
+        price = priceMap[formData.service] || 0;
+        description = formData.service;
+        priceText = `$${price}`;
+      }
     } else if (formData.service) {
       price = priceMap[formData.service] || 0;
       description = formData.service;
+
+      if (isWebProject) {
+        priceText = `$${price} one-time`;
+      } else if (isMaintenance) {
+        priceText = "$250-500/month";
+      } else {
+        priceText = `$${price}/month`;
+      }
     } else if (formData.plan) {
       price = priceMap[formData.plan] || 0;
       description = formData.plan;
+      priceText = `$${price}/month`;
     }
 
     if (formData.plan === "Enterprise") {
@@ -156,21 +181,24 @@ const Contact = () => {
       };
     }
 
-    return { price: `$${price}/month`, description };
+    return { price: priceText, description };
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Basic validation
-    if (
-      !formData.name ||
-      !formData.email ||
-      !formData.service ||
-      !formData.plan
-    ) {
+    if (!formData.name || !formData.email || !formData.service) {
       setToast({
         message: "Please fill in all required fields",
+        type: "error",
+      });
+      return;
+    }
+
+    if (formData.service === "Virtual Assistants" && !formData.plan) {
+      setToast({
+        message:
+          "Please select an engagement model for Virtual Assistant service",
         type: "error",
       });
       return;
@@ -179,21 +207,19 @@ const Contact = () => {
     setIsSubmitting(true);
 
     try {
-      // Prepare template parameters for EmailJS
       const templateParams = {
         from_name: formData.name,
         from_email: formData.email,
         company: formData.company || "Not provided",
         phone: formData.phone || "Not provided",
         service: formData.service,
-        plan: formData.plan,
+        plan: formData.plan || "N/A (Web Project)",
         estimated_price: formData.estimatedPrice || "Not calculated",
         message: formData.message || "No additional message",
         timestamp: new Date().toLocaleString(),
         source: prefillInfo.source || "Direct contact form",
       };
 
-      // Send email using EmailJS
       await emailjs.send(
         EMAILJS_SERVICE_ID,
         EMAILJS_TEMPLATE_ID,
@@ -201,28 +227,14 @@ const Contact = () => {
         EMAILJS_PUBLIC_KEY,
       );
 
-      // Show success message
       setToast({
-        message: "Your inquiry has been sent successfully! Redirecting...",
+        message: "Success! Redirecting to confirmation page...",
         type: "success",
       });
 
-      // Reset form (keep pre-filled service and plan if they came from services page)
-      setFormData({
-        name: "",
-        email: "",
-        company: "",
-        phone: "",
-        message: "",
-        service: prefillInfo.service || "",
-        plan: prefillInfo.plan || "",
-        estimatedPrice: formData.estimatedPrice || "",
-      });
-
-      // Redirect to thank you page after 2 seconds
       setTimeout(() => {
-        navigate("/thank-you?type=client");
-      }, 3000);
+        navigate("/thank-you?type=client", { replace: true });
+      }, 1500);
     } catch (error) {
       console.error("EmailJS Error:", error);
       setToast({
@@ -239,8 +251,6 @@ const Contact = () => {
 
   return (
     <main className="min-h-screen bg-gradient-to-b from-slate-50 to-white dark:from-slate-900 dark:to-slate-900 pt-32 pb-16 px-6">
-      {" "}
-      {/* Toast Notification */}
       {toast && (
         <Toast
           message={toast.message}
@@ -249,7 +259,6 @@ const Contact = () => {
         />
       )}
       <div className="max-w-4xl mx-auto">
-        {/* Header */}
         <div className="text-center mb-12">
           <h1 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4">
             Get Your Custom Quote
@@ -260,7 +269,6 @@ const Contact = () => {
           </p>
         </div>
 
-        {/* Prefill Notification */}
         {prefillInfo.service || prefillInfo.plan ? (
           <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl p-6 mb-8">
             <div className="flex items-start gap-4">
@@ -315,14 +323,11 @@ const Contact = () => {
           </div>
         ) : null}
 
-        {/* Price Estimate Card */}
         {estimatedPriceInfo && (
           <div className="bg-gradient-to-r from-[#004F7F] to-[#0066A5] dark:from-[#ECC600] dark:to-[#FFD700] rounded-xl p-6 mb-8 text-white dark:text-[#004F7F] shadow-lg">
             <div className="flex flex-col md:flex-row md:items-center justify-between">
               <div>
-                <p className="text-sm opacity-90 mb-1">
-                  Estimated Monthly Cost
-                </p>
+                <p className="text-sm opacity-90 mb-1">Estimated Cost</p>
                 <h3 className="text-3xl font-bold">
                   {estimatedPriceInfo.price}
                 </h3>
@@ -333,7 +338,7 @@ const Contact = () => {
               <div className="mt-4 md:mt-0">
                 <div className="inline-flex items-center gap-2 bg-white/20 dark:bg-[#004F7F]/20 px-4 py-2 rounded-full">
                   <svg
-                    className="w-4 h-4"
+                    className="w-6 h-6 text-[#fff] dark:text-[#004F7F]"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -342,7 +347,7 @@ const Contact = () => {
                       strokeLinecap="round"
                       strokeLinejoin="round"
                       strokeWidth={2}
-                      d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"
+                      d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z"
                     />
                   </svg>
                   <span className="text-sm font-medium">
@@ -354,10 +359,8 @@ const Contact = () => {
           </div>
         )}
 
-        {/* Contact Form */}
         <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-xl p-8">
           <form onSubmit={handleSubmit} className="space-y-6">
-            {/* Personal Information */}
             <div className="grid md:grid-cols-2 gap-6">
               <div>
                 <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
@@ -420,7 +423,6 @@ const Contact = () => {
               </div>
             </div>
 
-            {/* Service Selection */}
             <div className="grid md:grid-cols-2 gap-6">
               <div>
                 <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
@@ -440,51 +442,68 @@ const Contact = () => {
                   }}
                 >
                   <option value="">Select a service</option>
-                  <option value="Virtual Assistants">
-                    Virtual Assistants ($1,200/month)
-                  </option>
-                  <option value="Web Designers">
-                    Web Designers ($2,800/month)
-                  </option>
-                  <option value="Web Developers">
-                    Web Developers ($3,500/month)
-                  </option>
-                  <option value="Multiple Services">
-                    Multiple Services (Custom Quote)
-                  </option>
+
+                  <optgroup label="Virtual Assistants">
+                    <option value="Virtual Assistants">
+                      Virtual Assistants (Starting at $900/month)
+                    </option>
+                  </optgroup>
+
+                  <optgroup label="Web Design & Development">
+                    <option value="Landing Page">Landing Page ($1,500)</option>
+                    <option value="Business Website">
+                      Business Website ($3,500)
+                    </option>
+                    <option value="E-Commerce Store">
+                      E-Commerce Store ($5,500)
+                    </option>
+                    <option value="Website Maintenance">
+                      Website Maintenance ($250-500/month)
+                    </option>
+                  </optgroup>
+
+                  <optgroup label="Other">
+                    <option value="Multiple Services">
+                      Multiple Services (Custom Quote)
+                    </option>
+                  </optgroup>
                 </select>
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
-                  Engagement Model *
-                </label>
-                <select
-                  name="plan"
-                  required
-                  value={formData.plan}
-                  onChange={handleInputChange}
-                  className="w-full px-4 py-3 pr-10 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-[#004F7F] dark:focus:ring-[#ECC600] focus:border-transparent transition-colors appearance-none cursor-pointer"
-                  style={{
-                    backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23475569'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E")`,
-                    backgroundPosition: "right 0.75rem center",
-                    backgroundRepeat: "no-repeat",
-                    backgroundSize: "1.5em 1.5em",
-                  }}
-                >
-                  <option value="">Select a plan</option>
-                  <option value="Part-Time">
-                    Part-Time (20hrs/week - $1,500/month)
-                  </option>
-                  <option value="Full-Time">
-                    Full-Time (40hrs/week - $2,800/month)
-                  </option>
-                  <option value="Enterprise">Enterprise (Custom)</option>
-                </select>
-              </div>
+              {formData.service === "Virtual Assistants" && (
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                    Engagement Model *
+                  </label>
+                  <select
+                    name="plan"
+                    required
+                    value={formData.plan}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-3 pr-10 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-[#004F7F] dark:focus:ring-[#ECC600] focus:border-transparent transition-colors appearance-none cursor-pointer"
+                    style={{
+                      backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23475569'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E")`,
+                      backgroundPosition: "right 0.75rem center",
+                      backgroundRepeat: "no-repeat",
+                      backgroundSize: "1.5em 1.5em",
+                    }}
+                  >
+                    <option value="">Select a plan</option>
+                    <option value="Starter">
+                      Starter (10hrs/week - $900/month)
+                    </option>
+                    <option value="Part-Time">
+                      Part-Time (20hrs/week - $1,500/month)
+                    </option>
+                    <option value="Full-Time">
+                      Full-Time (40hrs/week - $2,800/month)
+                    </option>
+                    <option value="Enterprise">Enterprise (Custom)</option>
+                  </select>
+                </div>
+              )}
             </div>
 
-            {/* Estimated Price Display */}
             {estimatedPriceInfo && (
               <div className="bg-slate-50 dark:bg-slate-800/50 rounded-lg p-4 border border-slate-200 dark:border-slate-700">
                 <div className="flex items-center justify-between">
@@ -496,8 +515,8 @@ const Contact = () => {
                       {estimatedPriceInfo.price}
                     </p>
                     <p className="text-xs text-slate-500 dark:text-slate-500 mt-1">
-                      Based on {formData.service || "service"} with{" "}
-                      {formData.plan || "plan"}
+                      {formData.service || "Select a service"}
+                      {formData.plan && ` with ${formData.plan}`}
                     </p>
                   </div>
                   <div className="text-right">
@@ -512,7 +531,6 @@ const Contact = () => {
               </div>
             )}
 
-            {/* Project Details */}
             <div>
               <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
                 Project Details / Additional Requirements
@@ -527,7 +545,6 @@ const Contact = () => {
               />
             </div>
 
-            {/* Submit Button */}
             <div className="pt-4 flex flex-col items-center">
               <button
                 type="submit"
@@ -558,7 +575,6 @@ const Contact = () => {
           </form>
         </div>
 
-        {/* Benefits */}
         <div className="grid md:grid-cols-3 gap-6 mt-12">
           <div className="text-center">
             <div className="w-12 h-12 bg-[#004F7F]/10 dark:bg-[#ECC600]/10 rounded-full flex items-center justify-center mx-auto mb-4">
@@ -634,19 +650,19 @@ const Contact = () => {
         </div>
       </div>
       <style>{`
-  @keyframes slide-down {
-    from {
-      transform: translate(-50%, -100%);
-      opacity: 0;
-    }
-    to {
-      transform: translate(-50%, 0);
-      opacity: 1;
-    }
+@keyframes slide-down {
+  from {
+    transform: translate(-50%, -100%);
+    opacity: 0;
   }
-  .animate-slide-down {
-    animation: slide-down 0.3s ease-out forwards;
+  to {
+    transform: translate(-50%, 0);
+    opacity: 1;
   }
+}
+.animate-slide-down {
+  animation: slide-down 0.3s ease-out forwards;
+}
 `}</style>
     </main>
   );

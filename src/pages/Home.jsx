@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useTheme } from "../ThemeContext";
 import ContactUsNow from "../components/ContactUsNow";
 import vaImg from "../images/VA.png";
@@ -10,6 +11,7 @@ import lightServiceImg from "../images/lightService.jpg";
 import darkServiceImg from "../images/darkService.jpg";
 
 const Home = () => {
+  const navigate = useNavigate();
   const scrollTextRef = useRef(null);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [cardScrollProgress, setCardScrollProgress] = useState([0, 0, 0]);
@@ -63,6 +65,10 @@ const Home = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  const handleNavigateToSection = (sectionId) => {
+    navigate("/services", { state: { scrollTo: sectionId } });
+  };
+
   const text =
     "We connect your business with pre-vetted Virtual Assistants, Web Designers, and Web Developers. Skip the hiring hassle—get matched with top-tier professionals ready to scale your operations.";
   const words = text.split(" ");
@@ -83,7 +89,7 @@ const Home = () => {
           />
         </div>
 
-        {/* Gradient fade-out at bottom - SEPARATE LAYER so it's above the overlay */}
+        {/* Gradient fade-out at bottom */}
         <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white to-transparent dark:from-slate-900 z-10"></div>
 
         <div className="relative z-20">
@@ -181,7 +187,6 @@ const Home = () => {
             >
               {/* Text Box */}
               <div className="relative flex-1 bg-[#004F7F] dark:bg-[#ECC600] rounded-lg p-8 md:p-10 shadow-xl overflow-hidden h-full">
-                {/* Corner accents */}
                 <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-[#ECC600] dark:border-[#004F7F]"></div>
                 <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-[#ECC600] dark:border-[#004F7F]"></div>
                 <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-[#ECC600] dark:border-[#004F7F]"></div>
@@ -213,15 +218,14 @@ const Home = () => {
                   ))}
                 </ul>
 
-                <a
-                  href="#services#core-services"
-                  className="inline-flex items-center gap-2 text-white dark:text-[#004F7F] font-bold hover:gap-3 transition-all"
+                <button
+                  onClick={() => handleNavigateToSection("va-pricing")}
+                  className="inline-flex items-center gap-2 text-white dark:text-[#004F7F] font-bold hover:gap-3 transition-all cursor-pointer"
                 >
                   Hire Virtual Assistants →
-                </a>
+                </button>
               </div>
 
-              {/* Image */}
               <img
                 src={vaImg}
                 alt="Virtual Assistant"
@@ -243,9 +247,7 @@ const Home = () => {
                 transition: "opacity 0.1s ease-out",
               }}
             >
-              {/* Text Box */}
               <div className="relative flex-1 bg-[#004F7F] dark:bg-[#ECC600] rounded-lg p-8 md:p-10 shadow-xl overflow-hidden h-full">
-                {/* CORNER ACCENTS FIXED: Changed from border-red-500 border-4 to yellow border-2 */}
                 <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-[#ECC600] dark:border-[#004F7F]"></div>
                 <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-[#ECC600] dark:border-[#004F7F]"></div>
                 <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-[#ECC600] dark:border-[#004F7F]"></div>
@@ -276,15 +278,14 @@ const Home = () => {
                   ))}
                 </ul>
 
-                <a
-                  href="#services#core-services"
-                  className="inline-flex items-center gap-2 text-white dark:text-[#004F7F] font-bold hover:gap-3 transition-all"
+                <button
+                  onClick={() => handleNavigateToSection("web-pricing")}
+                  className="inline-flex items-center gap-2 text-white dark:text-[#004F7F] font-bold hover:gap-3 transition-all cursor-pointer"
                 >
                   Hire Web Designers →
-                </a>
+                </button>
               </div>
 
-              {/* Image - Added h-full to match height */}
               <img
                 src={designerImg}
                 alt="Web Designer"
@@ -306,9 +307,7 @@ const Home = () => {
                 transition: "opacity 0.1s ease-out",
               }}
             >
-              {/* Text Box */}
               <div className="relative flex-1 bg-[#004F7F] dark:bg-[#ECC600] rounded-lg p-8 md:p-10 shadow-xl overflow-hidden h-full">
-                {/* CORNER ACCENTS FIXED: Changed from border-red-500 border-4 to yellow border-2 */}
                 <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-[#ECC600] dark:border-[#004F7F]"></div>
                 <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-[#ECC600] dark:border-[#004F7F]"></div>
                 <div className="absolute bottom-0 left-0 w-4 h-4 border-b-2 border-l-2 border-[#ECC600] dark:border-[#004F7F]"></div>
@@ -339,15 +338,14 @@ const Home = () => {
                   ))}
                 </ul>
 
-                <a
-                  href="#services#core-services"
-                  className="inline-flex items-center gap-2 text-white dark:text-[#004F7F] font-bold hover:gap-3 transition-all"
+                <button
+                  onClick={() => handleNavigateToSection("web-pricing")}
+                  className="inline-flex items-center gap-2 text-white dark:text-[#004F7F] font-bold hover:gap-3 transition-all cursor-pointer"
                 >
                   Hire Web Developers →
-                </a>
+                </button>
               </div>
 
-              {/* Image - Added h-full to match height */}
               <img
                 src={developerImg}
                 alt="Web Developer"
@@ -357,7 +355,6 @@ const Home = () => {
           </div>
         </div>
 
-        {/* Add spacing after cards */}
         <div className="h-20"></div>
       </section>
 
@@ -406,7 +403,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* Our Approach - Replacing Why Companies Choose Virtuo */}
+      {/* Our Approach */}
       <section className="bg-slate-50 dark:bg-slate-800 py-24 px-6 transition-colors duration-300">
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
@@ -426,7 +423,6 @@ const Home = () => {
                 icon: (
                   <div className="flex justify-center mb-4">
                     <div className="w-16 h-16 rounded-full bg-[#004F7F]/10 dark:bg-[#004F7F]/20 flex items-center justify-center">
-                      {/* Checkmark Icon */}
                       <svg
                         className="w-8 h-8 text-[#004F7F] dark:text-[#ABCD36]"
                         fill="none"
@@ -450,7 +446,6 @@ const Home = () => {
                 icon: (
                   <div className="flex justify-center mb-4">
                     <div className="w-16 h-16 rounded-full bg-[#004F7F]/10 dark:bg-[#004F7F]/20 flex items-center justify-center">
-                      {/* Clock Icon */}
                       <svg
                         className="w-8 h-8 text-[#004F7F] dark:text-[#ABCD36]"
                         fill="none"
@@ -474,7 +469,6 @@ const Home = () => {
                 icon: (
                   <div className="flex justify-center mb-4">
                     <div className="w-16 h-16 rounded-full bg-[#004F7F]/10 dark:bg-[#004F7F]/20 flex items-center justify-center">
-                      {/* Handshake Icon */}
                       <svg
                         className="w-8 h-8 text-[#004F7F] dark:text-[#ABCD36]"
                         fill="none"
@@ -498,7 +492,6 @@ const Home = () => {
                 icon: (
                   <div className="flex justify-center mb-4">
                     <div className="w-16 h-16 rounded-full bg-[#004F7F]/10 dark:bg-[#004F7F]/20 flex items-center justify-center">
-                      {/* Refresh/Recycle Icon */}
                       <svg
                         className="w-8 h-8 text-[#004F7F] dark:text-[#ABCD36]"
                         fill="none"
