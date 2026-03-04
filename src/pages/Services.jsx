@@ -165,7 +165,8 @@ const Services = () => {
           </div>
 
           {/* Web Solutions Card */}
-          <div className="relative rounded-2xl p-8 bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 hover:shadow-xl hover:border-[#004F7F]/30 dark:hover:border-[#ECC600]/30 transition-all duration-300 cursor-pointer group">
+          <div className="relative rounded-2xl p-8 bg-white dark:bg-slate-900 border-2 border-[#004F7F] dark:border-[#ECC600] hover:shadow-xl transition-all duration-300 cursor-pointer group">
+            {" "}
             <div className="flex justify-center mb-6 text-[#004F7F] dark:text-[#ECC600]">
               <svg
                 className="w-16 h-16"
