@@ -23,10 +23,8 @@ const Home = () => {
         const element = scrollTextRef.current;
         const rect = element.getBoundingClientRect();
         const windowHeight = window.innerHeight;
-
         const elementTop = rect.top;
         const elementHeight = rect.height;
-
         const progress = Math.max(
           0,
           Math.min(
@@ -34,7 +32,6 @@ const Home = () => {
             (windowHeight - elementTop) / (windowHeight + elementHeight),
           ),
         );
-
         setScrollProgress(progress);
       }
 
@@ -44,15 +41,11 @@ const Home = () => {
       cards.forEach((card, index) => {
         const nextCard = cards[index + 1];
         if (!nextCard) return;
-
         const rect = nextCard.getBoundingClientRect();
         const windowHeight = window.innerHeight;
-
         const start = windowHeight * 0.9;
         const end = windowHeight * 0.3;
-
         const progress = (start - rect.top) / (start - end);
-
         newProgress[index] = Math.max(0, Math.min(1, progress));
       });
 
@@ -61,13 +54,8 @@ const Home = () => {
 
     window.addEventListener("scroll", handleScroll);
     handleScroll();
-
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  const handleNavigateToSection = (sectionId) => {
-    navigate("/services", { state: { scrollTo: sectionId } });
-  };
 
   const text =
     "We connect your business with pre-vetted Virtual Assistants, Web Designers, and Web Developers. Skip the hiring hassle—get matched with top-tier professionals ready to scale your operations.";
@@ -75,12 +63,11 @@ const Home = () => {
 
   return (
     <main className="w-full">
-      {/* Hero Section with Background Images */}
+      {/* Hero Section */}
       <section
         id="hero"
         className="relative flex flex-col items-center justify-center min-h-screen p-6 text-center transition-colors duration-300 overflow-hidden"
       >
-        {/* Background Image */}
         <div className="absolute inset-0 z-0">
           <img
             src={isDark ? darkHeroImg : lightHeroImg}
@@ -88,10 +75,7 @@ const Home = () => {
             className="w-full h-full object-cover"
           />
         </div>
-
-        {/* Gradient fade-out at bottom */}
         <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white to-transparent dark:from-slate-900 z-10"></div>
-
         <div className="relative z-20">
           <h1 className="text-5xl md:text-7xl font-bold tracking-tighter text-slate-900 dark:text-white mb-4 leading-tight">
             Elite Remote Talent
@@ -100,7 +84,6 @@ const Home = () => {
               Delivered to You
             </span>
           </h1>
-
           <p className="text-lg text-slate-900 dark:text-white/90 max-w-md mx-auto leading-relaxed font-medium">
             The bridge between ambition and world-class remote talent.
           </p>
@@ -115,9 +98,7 @@ const Home = () => {
               const speed = 1.5;
               const wordProgress =
                 scrollProgress * words.length * speed - index;
-
               const opacity = Math.max(0, Math.min(1, wordProgress));
-
               return (
                 <span
                   key={index}
@@ -143,7 +124,6 @@ const Home = () => {
 
       {/* Services Section with Scroll-Stacking Cards */}
       <section className="relative bg-slate-50 dark:bg-slate-800 transition-colors duration-300">
-        {/* Background Image */}
         <div className="absolute inset-0 z-0">
           <img
             src={isDark ? darkServiceImg : lightServiceImg}
@@ -151,14 +131,9 @@ const Home = () => {
             className="w-full h-full object-cover"
           />
         </div>
-
-        {/* Gradient fade-out at top */}
         <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-slate-50 to-transparent dark:from-slate-900 z-10"></div>
-
-        {/* Gradient fade-out at bottom */}
         <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-white to-transparent dark:from-slate-900 z-10"></div>
 
-        {/* Section Header */}
         <div className="text-center pt-20 pb-10 px-6 relative z-10">
           <h2 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4 transition-colors duration-300">
             Specialized Talent for Your Needs
@@ -170,7 +145,6 @@ const Home = () => {
           </p>
         </div>
 
-        {/* Sticky Stacking Cards Container */}
         <div>
           {/* Card 1 - Virtual Assistants */}
           <div
@@ -185,7 +159,6 @@ const Home = () => {
                 transition: "opacity 0.1s ease-out",
               }}
             >
-              {/* Text Box */}
               <div className="relative flex-1 bg-[#004F7F] dark:bg-[#ECC600] rounded-lg p-8 md:p-10 shadow-xl overflow-hidden h-full">
                 <div className="absolute top-0 left-0 w-4 h-4 border-t-2 border-l-2 border-[#ECC600] dark:border-[#004F7F]"></div>
                 <div className="absolute top-0 right-0 w-4 h-4 border-t-2 border-r-2 border-[#ECC600] dark:border-[#004F7F]"></div>
@@ -200,7 +173,6 @@ const Home = () => {
                   handle day-to-day operations so you can focus on strategic
                   growth.
                 </p>
-
                 <ul className="space-y-3 mb-6">
                   {[
                     "Email & calendar management",
@@ -219,10 +191,16 @@ const Home = () => {
                 </ul>
 
                 <button
-                  onClick={() => handleNavigateToSection("va-pricing")}
-                  className="inline-flex items-center gap-2 text-white dark:text-[#004F7F] font-bold hover:gap-3 transition-all cursor-pointer"
+                  onClick={() => navigate("/services")}
+                  className="relative rounded-full font-bold px-8 py-4 transition-all duration-300 hover:scale-105 active:scale-95"
+                  style={{
+                    backgroundColor: isDark ? "#fff" : "#ECC600",
+                    color: "#004F7F",
+                  }}
                 >
-                  Hire Virtual Assistants →
+                  <span className="font-semibold tracking-wide">
+                    See Pricing
+                  </span>
                 </button>
               </div>
 
@@ -260,7 +238,6 @@ const Home = () => {
                   Creative professionals who craft stunning, user-centric
                   designs that elevate your brand and drive conversions.
                 </p>
-
                 <ul className="space-y-3 mb-6">
                   {[
                     "UI/UX design & prototyping",
@@ -279,10 +256,16 @@ const Home = () => {
                 </ul>
 
                 <button
-                  onClick={() => handleNavigateToSection("web-pricing")}
-                  className="inline-flex items-center gap-2 text-white dark:text-[#004F7F] font-bold hover:gap-3 transition-all cursor-pointer"
+                  onClick={() => navigate("/services")}
+                  className="relative rounded-full font-bold px-8 py-4 transition-all duration-300 hover:scale-105 active:scale-95"
+                  style={{
+                    backgroundColor: isDark ? "#fff" : "#ECC600",
+                    color: "#004F7F",
+                  }}
                 >
-                  Hire Web Designers →
+                  <span className="font-semibold tracking-wide">
+                    See Pricing
+                  </span>
                 </button>
               </div>
 
@@ -320,7 +303,6 @@ const Home = () => {
                   Skilled engineers who build robust, scalable web applications
                   tailored to your business requirements.
                 </p>
-
                 <ul className="space-y-3 mb-6">
                   {[
                     "Full-stack development",
@@ -339,10 +321,16 @@ const Home = () => {
                 </ul>
 
                 <button
-                  onClick={() => handleNavigateToSection("web-pricing")}
-                  className="inline-flex items-center gap-2 text-white dark:text-[#004F7F] font-bold hover:gap-3 transition-all cursor-pointer"
+                  onClick={() => navigate("/services")}
+                  className="relative rounded-full font-bold px-8 py-4 transition-all duration-300 hover:scale-105 active:scale-95"
+                  style={{
+                    backgroundColor: isDark ? "#fff" : "#ECC600",
+                    color: "#004F7F",
+                  }}
                 >
-                  Hire Web Developers →
+                  <span className="font-semibold tracking-wide">
+                    See Pricing
+                  </span>
                 </button>
               </div>
 
@@ -368,7 +356,6 @@ const Home = () => {
             A simple, proven process to scale your team quickly.
           </p>
         </div>
-
         <div className="grid md:grid-cols-3 gap-10 max-w-6xl mx-auto">
           {[
             {
@@ -416,7 +403,6 @@ const Home = () => {
               extensions of your team.
             </p>
           </div>
-
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
             {[
               {

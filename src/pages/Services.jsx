@@ -1,28 +1,15 @@
-import React, { useState, useEffect } from "react";
-import { useNavigate, useLocation } from "react-router-dom";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useTheme } from "../ThemeContext";
 import blackHeroImg from "../images/blackHero.jpg";
 import whiteHeroImg from "../images/whiteHero.jpg";
 
 const Services = () => {
   const navigate = useNavigate();
-  const location = useLocation();
   const { isDark } = useTheme();
   const [selectedPricing, setSelectedPricing] = useState("Part-Time");
   const [selectedWebProject, setSelectedWebProject] =
     useState("Business Website");
-
-  // SCROLL HANDLER - MOVED UP
-  useEffect(() => {
-    if (location.state?.scrollTo) {
-      setTimeout(() => {
-        const element = document.getElementById(location.state.scrollTo);
-        if (element) {
-          element.scrollIntoView({ behavior: "smooth", block: "start" });
-        }
-      }, 300);
-    }
-  }, [location]);
 
   const handlePricingCardClick = (planName) => {
     setSelectedPricing(planName);
@@ -109,7 +96,6 @@ const Services = () => {
           </p>
         </div>
 
-        {/* 2 BIG SERVICE CARDS */}
         <div className="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
           {/* Virtual Assistants Card */}
           <div className="relative rounded-2xl p-8 bg-white dark:bg-slate-900 border-2 border-[#004F7F] dark:border-[#ECC600] hover:shadow-xl transition-all duration-300 cursor-pointer group">
@@ -118,7 +104,6 @@ const Services = () => {
                 MOST POPULAR
               </span>
             </div>
-
             <div className="flex justify-center mb-6 text-[#004F7F] dark:text-[#ECC600]">
               <svg
                 className="w-16 h-16"
@@ -134,17 +119,14 @@ const Services = () => {
                 />
               </svg>
             </div>
-
             <h3 className="text-3xl font-bold mb-3 text-slate-900 dark:text-white text-center">
               Virtual Assistants
             </h3>
-
             <p className="mb-6 leading-relaxed text-slate-600 dark:text-slate-400 text-center">
               Professional administrative support to handle your day-to-day
               operations, customer service, and back-office tasks with
               precision.
             </p>
-
             <ul className="space-y-3 mb-8">
               {[
                 "Email & calendar management",
@@ -161,7 +143,6 @@ const Services = () => {
                 </li>
               ))}
             </ul>
-
             <div className="border-t border-slate-200 dark:border-slate-700 pt-6 mb-6">
               <div className="text-sm font-semibold mb-1 text-slate-900 dark:text-slate-300 text-center">
                 STARTING AT
@@ -175,7 +156,6 @@ const Services = () => {
                 </span>
               </div>
             </div>
-
             <button
               onClick={scrollToVAPricing}
               className="relative w-full py-3 rounded-full font-bold bg-[#004F7F] dark:bg-[#ECC600] text-white dark:text-[#004F7F] hover:opacity-90 transition-all"
@@ -201,17 +181,14 @@ const Services = () => {
                 />
               </svg>
             </div>
-
             <h3 className="text-3xl font-bold mb-3 text-slate-900 dark:text-white text-center">
               Web Solutions
             </h3>
-
             <p className="mb-6 leading-relaxed text-slate-600 dark:text-slate-400 text-center">
               Complete web design and development services. From landing pages
               to full e-commerce stores, we build stunning websites that
               convert.
             </p>
-
             <ul className="space-y-3 mb-8">
               {[
                 "UI/UX design & prototyping",
@@ -228,7 +205,6 @@ const Services = () => {
                 </li>
               ))}
             </ul>
-
             <div className="border-t border-slate-200 dark:border-slate-700 pt-6 mb-6">
               <div className="text-sm font-semibold mb-1 text-slate-900 dark:text-slate-300 text-center">
                 STARTING AT
@@ -242,7 +218,6 @@ const Services = () => {
                 </span>
               </div>
             </div>
-
             <button
               onClick={scrollToWebPricing}
               className="relative w-full py-3 rounded-full font-bold bg-[#004F7F] dark:bg-[#ECC600] text-white dark:text-[#004F7F] hover:opacity-90 transition-all"
@@ -264,7 +239,6 @@ const Services = () => {
             fit for your business needs.
           </p>
         </div>
-
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-6xl mx-auto">
           <BenefitCard
             icon={
@@ -355,7 +329,6 @@ const Services = () => {
             Get started with top remote talent in just four simple steps
           </p>
         </div>
-
         <div className="grid md:grid-cols-4 gap-8 max-w-6xl mx-auto">
           <ProcessStep
             number="1"
@@ -393,7 +366,6 @@ const Services = () => {
             Choose the engagement model that works best for your business needs
           </p>
         </div>
-
         <div className="grid md:grid-cols-4 gap-8 max-w-6xl mx-auto">
           <PricingCard
             title="Starter"
@@ -411,7 +383,6 @@ const Services = () => {
             onClick={() => handlePricingCardClick("Starter")}
             onButtonClick={() => handlePricingSelect("Starter", "$900")}
           />
-
           <PricingCard
             badge="POPULAR"
             title="Part-Time"
@@ -429,7 +400,6 @@ const Services = () => {
             onClick={() => handlePricingCardClick("Part-Time")}
             onButtonClick={() => handlePricingSelect("Part-Time", "$1,500")}
           />
-
           <PricingCard
             title="Full-Time"
             subtitle="40 hours per week"
@@ -447,7 +417,6 @@ const Services = () => {
             onClick={() => handlePricingCardClick("Full-Time")}
             onButtonClick={() => handlePricingSelect("Full-Time", "$2,800")}
           />
-
           <PricingCard
             title="Enterprise"
             subtitle="Multiple team members"
@@ -479,9 +448,7 @@ const Services = () => {
             Professional web solutions with clear deliverables and timelines
           </p>
         </div>
-
         <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          {/* Landing Page */}
           <WebProjectCard
             title="Landing Page"
             subtitle="Single page, conversion-focused"
@@ -499,8 +466,6 @@ const Services = () => {
               handleWebProjectSelect("Landing Page", "$1,500")
             }
           />
-
-          {/* Business Website */}
           <WebProjectCard
             badge="MOST POPULAR"
             title="Business Website"
@@ -520,8 +485,6 @@ const Services = () => {
               handleWebProjectSelect("Business Website", "$3,500")
             }
           />
-
-          {/* E-Commerce Store */}
           <WebProjectCard
             title="E-Commerce Store"
             subtitle="Full online store solution"
@@ -541,7 +504,6 @@ const Services = () => {
             }
           />
         </div>
-
         <div className="text-center mt-12">
           <p className="text-slate-600 dark:text-slate-400">
             <span className="font-semibold">Website Maintenance:</span>{" "}
@@ -585,47 +547,40 @@ const Services = () => {
   );
 };
 
-// Benefit Card Component
-const BenefitCard = ({ icon, title, description }) => {
-  return (
-    <div className="bg-white dark:bg-slate-900 rounded-2xl p-8 text-center shadow-sm hover:shadow-md transition-shadow duration-300 hover:scale-105 transition-transform duration-300 cursor-pointer group">
-      <div className="flex justify-center mb-4">
-        <div className="w-16 h-16 rounded-full bg-[#004F7F]/10 dark:bg-[#004F7F]/20 flex items-center justify-center text-[#004F7F] dark:text-[#004F7F] group-hover:bg-[#004F7F]/20 dark:group-hover:bg-[#004F7F]/30 transition-colors duration-300">
-          {icon}
-        </div>
+const BenefitCard = ({ icon, title, description }) => (
+  <div className="bg-white dark:bg-slate-900 rounded-2xl p-8 text-center shadow-sm hover:shadow-md transition-shadow duration-300 hover:scale-105 cursor-pointer group">
+    <div className="flex justify-center mb-4">
+      <div className="w-16 h-16 rounded-full bg-[#004F7F]/10 dark:bg-[#004F7F]/20 flex items-center justify-center text-[#004F7F] group-hover:bg-[#004F7F]/20 dark:group-hover:bg-[#004F7F]/30 transition-colors duration-300">
+        {icon}
       </div>
-      <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3">
-        {title}
-      </h3>
-      <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
-        {description}
-      </p>
     </div>
-  );
-};
+    <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3">
+      {title}
+    </h3>
+    <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
+      {description}
+    </p>
+  </div>
+);
 
-// Process Step Component
-const ProcessStep = ({ number, title, description }) => {
-  return (
-    <div className="text-center group cursor-pointer">
-      <div className="flex justify-center mb-6">
-        <div className="w-16 h-16 rounded-full bg-[#004F7F] dark:bg-[#ECC600] flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
-          <span className="text-2xl font-bold text-white dark:text-[#004F7F]">
-            {number}
-          </span>
-        </div>
+const ProcessStep = ({ number, title, description }) => (
+  <div className="text-center group cursor-pointer">
+    <div className="flex justify-center mb-6">
+      <div className="w-16 h-16 rounded-full bg-[#004F7F] dark:bg-[#ECC600] flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+        <span className="text-2xl font-bold text-white dark:text-[#004F7F]">
+          {number}
+        </span>
       </div>
-      <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3 group-hover:text-[#004F7F] dark:group-hover:text-[#ECC600] transition-colors duration-300">
-        {title}
-      </h3>
-      <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
-        {description}
-      </p>
     </div>
-  );
-};
+    <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3 group-hover:text-[#004F7F] dark:group-hover:text-[#ECC600] transition-colors duration-300">
+      {title}
+    </h3>
+    <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
+      {description}
+    </p>
+  </div>
+);
 
-// Pricing Card Component (for VA pricing)
 const PricingCard = ({
   badge,
   title,
@@ -639,17 +594,12 @@ const PricingCard = ({
   onButtonClick,
 }) => {
   const [isHovered, setIsHovered] = useState(false);
-
   return (
     <div
       onClick={onClick}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className={`relative rounded-2xl p-8 transition-all duration-300 hover:shadow-xl cursor-pointer group ${
-        isSelected
-          ? "bg-[#004F7F] dark:bg-[#ECC600] text-white dark:text-[#004F7F] border-2 border-[#004F7F] dark:border-[#ECC600] transform scale-105"
-          : "bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 hover:border-[#004F7F]/30 dark:hover:border-[#ECC600]/30"
-      }`}
+      className={`relative rounded-2xl p-8 transition-all duration-300 hover:shadow-xl cursor-pointer group ${isSelected ? "bg-[#004F7F] dark:bg-[#ECC600] text-white dark:text-[#004F7F] border-2 border-[#004F7F] dark:border-[#ECC600] transform scale-105" : "bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 hover:border-[#004F7F]/30 dark:hover:border-[#ECC600]/30"}`}
     >
       {badge && (
         <div className="absolute -top-3 left-1/2 -translate-x-1/2">
@@ -658,19 +608,16 @@ const PricingCard = ({
           </span>
         </div>
       )}
-
       <h3
         className={`text-2xl font-bold mb-2 ${isSelected ? "" : "text-slate-900 dark:text-white"}`}
       >
         {title}
       </h3>
-
       <p
         className={`mb-6 text-sm ${isSelected ? "text-white/80 dark:text-[#004F7F]/80" : "text-slate-600 dark:text-slate-400"}`}
       >
         {subtitle}
       </p>
-
       <div className="mb-6">
         <div className="flex items-end gap-2">
           <span
@@ -687,7 +634,6 @@ const PricingCard = ({
           )}
         </div>
       </div>
-
       <ul className="space-y-3 mb-8">
         {features.map((feature, i) => (
           <li
@@ -711,25 +657,18 @@ const PricingCard = ({
           </li>
         ))}
       </ul>
-
       <button
         onClick={(e) => {
           e.stopPropagation();
           onButtonClick();
         }}
-        className={`relative w-full py-3 rounded-full font-bold overflow-hidden transition-all duration-300 group-hover:scale-105 ${
-          isHovered ? "scale-105" : ""
-        }`}
+        className={`relative w-full py-3 rounded-full font-bold overflow-hidden transition-all duration-300 group-hover:scale-105 ${isHovered ? "scale-105" : ""}`}
       >
         <div
           className={`absolute inset-0 ${isSelected ? "bg-white dark:bg-[#004F7F]" : "bg-[#004F7F] dark:bg-[#ECC600]"}`}
         ></div>
         <div
-          className={`absolute inset-0 transition-all duration-700 ease-out ${
-            isSelected
-              ? "bg-[#ECC600] dark:bg-white"
-              : "bg-[#ECC600] dark:bg-white"
-          }`}
+          className={`absolute inset-0 transition-all duration-700 ease-out ${isSelected ? "bg-[#ECC600] dark:bg-white" : "bg-[#ECC600] dark:bg-white"}`}
           style={{
             transform: isHovered ? "translateY(0%)" : "translateY(100%)",
           }}
@@ -744,7 +683,6 @@ const PricingCard = ({
   );
 };
 
-// Web Project Card Component - FIXED TO WORK LIKE VA PRICING
 const WebProjectCard = ({
   badge,
   title,
@@ -756,17 +694,12 @@ const WebProjectCard = ({
   onButtonClick,
 }) => {
   const [isHovered, setIsHovered] = useState(false);
-
   return (
     <div
       onClick={onClick}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className={`relative rounded-2xl p-8 transition-all duration-300 hover:shadow-xl cursor-pointer group ${
-        isSelected
-          ? "bg-[#004F7F] dark:bg-[#ECC600] text-white dark:text-[#004F7F] border-2 border-[#004F7F] dark:border-[#ECC600] transform scale-105"
-          : "bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 hover:border-[#004F7F]/30 dark:hover:border-[#ECC600]/30"
-      }`}
+      className={`relative rounded-2xl p-8 transition-all duration-300 hover:shadow-xl cursor-pointer group ${isSelected ? "bg-[#004F7F] dark:bg-[#ECC600] text-white dark:text-[#004F7F] border-2 border-[#004F7F] dark:border-[#ECC600] transform scale-105" : "bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 hover:border-[#004F7F]/30 dark:hover:border-[#ECC600]/30"}`}
     >
       {badge && (
         <div className="absolute -top-3 left-1/2 -translate-x-1/2">
@@ -775,29 +708,23 @@ const WebProjectCard = ({
           </span>
         </div>
       )}
-
       <h3
         className={`text-2xl font-bold mb-2 ${isSelected ? "" : "text-slate-900 dark:text-white"}`}
       >
         {title}
       </h3>
-
       <p
         className={`mb-6 text-sm ${isSelected ? "text-white/80 dark:text-[#004F7F]/80" : "text-slate-600 dark:text-slate-400"}`}
       >
         {subtitle}
       </p>
-
       <div className="mb-6">
-        <div className="flex items-end gap-2">
-          <span
-            className={`text-4xl font-bold ${isSelected ? "" : "text-slate-900 dark:text-white"}`}
-          >
-            {price}
-          </span>
-        </div>
+        <span
+          className={`text-4xl font-bold ${isSelected ? "" : "text-slate-900 dark:text-white"}`}
+        >
+          {price}
+        </span>
       </div>
-
       <ul className="space-y-3 mb-8">
         {features.map((feature, i) => (
           <li
@@ -821,25 +748,18 @@ const WebProjectCard = ({
           </li>
         ))}
       </ul>
-
       <button
         onClick={(e) => {
           e.stopPropagation();
           onButtonClick();
         }}
-        className={`relative w-full py-3 rounded-full font-bold overflow-hidden transition-all duration-300 group-hover:scale-105 ${
-          isHovered ? "scale-105" : ""
-        }`}
+        className={`relative w-full py-3 rounded-full font-bold overflow-hidden transition-all duration-300 group-hover:scale-105 ${isHovered ? "scale-105" : ""}`}
       >
         <div
           className={`absolute inset-0 ${isSelected ? "bg-white dark:bg-[#004F7F]" : "bg-[#004F7F] dark:bg-[#ECC600]"}`}
         ></div>
         <div
-          className={`absolute inset-0 transition-all duration-700 ease-out ${
-            isSelected
-              ? "bg-[#ECC600] dark:bg-white"
-              : "bg-[#ECC600] dark:bg-white"
-          }`}
+          className={`absolute inset-0 transition-all duration-700 ease-out ${isSelected ? "bg-[#ECC600] dark:bg-white" : "bg-[#ECC600] dark:bg-white"}`}
           style={{
             transform: isHovered ? "translateY(0%)" : "translateY(100%)",
           }}
