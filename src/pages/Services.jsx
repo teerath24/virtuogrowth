@@ -489,7 +489,7 @@ const Services = () => {
               "Product catalog",
               "Shopping cart",
               "Payment gateway",
-              "Admin panel",
+              "Admin dashboard",
               "4 revisions",
               "30-day delivery",
             ]}
