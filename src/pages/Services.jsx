@@ -166,7 +166,6 @@ const Services = () => {
 
           {/* Web Solutions Card */}
           <div className="relative rounded-2xl p-8 bg-white dark:bg-slate-900 border-2 border-[#004F7F] dark:border-[#ECC600] hover:shadow-xl transition-all duration-300 cursor-pointer group">
-            {" "}
             <div className="flex justify-center mb-6 text-[#004F7F] dark:text-[#ECC600]">
               <svg
                 className="w-16 h-16"
@@ -549,9 +548,9 @@ const Services = () => {
 };
 
 const BenefitCard = ({ icon, title, description }) => (
-  <div className="bg-white dark:bg-slate-900 rounded-2xl p-8 text-center shadow-sm hover:shadow-md transition-shadow duration-300 hover:scale-105 cursor-pointer group">
+  <div className="bg-white dark:bg-slate-900 rounded-2xl p-8 text-center shadow-sm transition-shadow duration-300 group">
     <div className="flex justify-center mb-4">
-      <div className="w-16 h-16 rounded-full bg-[#004F7F]/10 dark:bg-[#004F7F]/20 flex items-center justify-center text-[#004F7F] group-hover:bg-[#004F7F]/20 dark:group-hover:bg-[#004F7F]/30 transition-colors duration-300">
+      <div className="w-16 h-16 rounded-full bg-[#004F7F]/10 dark:bg-[#004F7F]/20 flex items-center justify-center text-[#004F7F] group-hover:scale-110 transition-transform duration-300">
         {icon}
       </div>
     </div>
@@ -565,7 +564,7 @@ const BenefitCard = ({ icon, title, description }) => (
 );
 
 const ProcessStep = ({ number, title, description }) => (
-  <div className="text-center group cursor-pointer">
+  <div className="text-center group ">
     <div className="flex justify-center mb-6">
       <div className="w-16 h-16 rounded-full bg-[#004F7F] dark:bg-[#ECC600] flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
         <span className="text-2xl font-bold text-white dark:text-[#004F7F]">
@@ -573,7 +572,7 @@ const ProcessStep = ({ number, title, description }) => (
         </span>
       </div>
     </div>
-    <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3 group-hover:text-[#004F7F] dark:group-hover:text-[#ECC600] transition-colors duration-300">
+    <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3 ">
       {title}
     </h3>
     <p className="text-slate-600 dark:text-slate-400 leading-relaxed">
