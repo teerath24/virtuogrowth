@@ -98,7 +98,7 @@ const Services = () => {
 
         <div className="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
           {/* Virtual Assistants Card */}
-          <div className="relative rounded-2xl p-8 bg-white dark:bg-slate-900 border-2 border-[#004F7F] dark:border-[#ECC600] hover:shadow-xl transition-all duration-300 cursor-pointer group">
+          <div className="relative rounded-2xl p-8 bg-white dark:bg-slate-900 border-2 border-[#004F7F] dark:border-[#ECC600] transition-all duration-300 cursor-pointer group">
             <div className="absolute -top-3 left-1/2 -translate-x-1/2">
               <span className="bg-[#ECC600] dark:bg-[#004F7F] text-[#004F7F] dark:text-[#ECC600] text-xs font-bold px-4 py-1 rounded-full">
                 MOST POPULAR
@@ -156,16 +156,14 @@ const Services = () => {
                 </span>
               </div>
             </div>
-            <button
+            <ViewPricingButton
               onClick={scrollToVAPricing}
-              className="relative w-full py-3 rounded-full font-bold bg-[#004F7F] dark:bg-[#ECC600] text-white dark:text-[#004F7F] hover:opacity-90 transition-all"
-            >
-              View VA Pricing
-            </button>
+              text="View VA Pricing"
+            />
           </div>
 
           {/* Web Solutions Card */}
-          <div className="relative rounded-2xl p-8 bg-white dark:bg-slate-900 border-2 border-[#004F7F] dark:border-[#ECC600] hover:shadow-xl transition-all duration-300 cursor-pointer group">
+          <div className="relative rounded-2xl p-8 bg-white dark:bg-slate-900 border-2 border-[#004F7F] dark:border-[#ECC600] transition-all duration-300 cursor-pointer group">
             <div className="flex justify-center mb-6 text-[#004F7F] dark:text-[#ECC600]">
               <svg
                 className="w-16 h-16"
@@ -218,12 +216,10 @@ const Services = () => {
                 </span>
               </div>
             </div>
-            <button
+            <ViewPricingButton
               onClick={scrollToWebPricing}
-              className="relative w-full py-3 rounded-full font-bold bg-[#004F7F] dark:bg-[#ECC600] text-white dark:text-[#004F7F] hover:opacity-90 transition-all"
-            >
-              View Web Packages
-            </button>
+              text="View Web Packages"
+            />
           </div>
         </div>
       </section>
@@ -771,6 +767,27 @@ const WebProjectCard = ({
         </span>
       </button>
     </div>
+  );
+};
+
+const ViewPricingButton = ({ onClick, text = "View VA Pricing" }) => {
+  const [isHovered, setIsHovered] = useState(false);
+  return (
+    <button
+      onClick={onClick}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
+      className="relative w-full py-3 rounded-full font-bold overflow-hidden transition-all duration-300 hover:scale-105"
+    >
+      <div className="absolute inset-0 bg-[#004F7F] dark:bg-[#ECC600]"></div>
+      <div
+        className="absolute inset-0 transition-all duration-700 ease-out bg-[#ECC600] dark:bg-white"
+        style={{ transform: isHovered ? "translateY(0%)" : "translateY(100%)" }}
+      />
+      <span className="relative z-10 text-white dark:text-[#004F7F]">
+        {text}
+      </span>
+    </button>
   );
 };
 
