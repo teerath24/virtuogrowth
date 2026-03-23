@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import emailjs from "@emailjs/browser";
+
+const GHL_WEBHOOK_URL =
+  "https://services.leadconnectorhq.com/hooks/QxAJ5A0z5KoJoLehFMzL/webhook-trigger/b3f09570-5093-4708-b877-2c63d73c581e";
 
 const Toast = ({ message, type, onClose }) => {
   React.useEffect(() => {
@@ -71,12 +73,6 @@ const Contact = () => {
   const [toast, setToast] = useState(null);
   const [isHovered, setIsHovered] = useState(false);
 
-  // EmailJS Configuration
-  const EMAILJS_SERVICE_ID = "service_uppgg2j";
-  const EMAILJS_TEMPLATE_ID = "template_kfonuxg";
-  const EMAILJS_PUBLIC_KEY = "1_WK7wG-r7N-xLeCE";
-
-  // Price mapping for calculations
   const priceMap = {
     "Virtual Assistants": 900,
     Starter: 900,
@@ -89,7 +85,6 @@ const Contact = () => {
     "Website Maintenance": 375,
   };
 
-  // Extract prefill data from location state
   useEffect(() => {
     const prefillData = location.state || {};
 
@@ -207,25 +202,22 @@ const Contact = () => {
     setIsSubmitting(true);
 
     try {
-      const templateParams = {
-        from_name: formData.name,
-        from_email: formData.email,
-        company: formData.company || "Not provided",
-        phone: formData.phone || "Not provided",
-        service: formData.service,
-        plan: formData.plan || "N/A (Web Project)",
-        estimated_price: formData.estimatedPrice || "Not calculated",
-        message: formData.message || "No additional message",
-        timestamp: new Date().toLocaleString(),
-        source: prefillInfo.source || "Direct contact form",
-      };
-
-      await emailjs.send(
-        EMAILJS_SERVICE_ID,
-        EMAILJS_TEMPLATE_ID,
-        templateParams,
-        EMAILJS_PUBLIC_KEY,
-      );
+      await fetch(GHL_WEBHOOK_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          first_name: formData.name,
+          email: formData.email,
+          phone: formData.phone || "",
+          company: formData.company || "",
+          service: formData.service,
+          plan: formData.plan || "",
+          estimated_price: formData.estimatedPrice || "",
+          message: formData.message || "",
+          source: prefillInfo.source || "Direct contact form",
+          timestamp: new Date().toLocaleString(),
+        }),
+      });
 
       setToast({
         message: "Success! Redirecting to confirmation page...",
@@ -236,7 +228,7 @@ const Contact = () => {
         navigate("/thank-you?type=client", { replace: true });
       }, 1500);
     } catch (error) {
-      console.error("EmailJS Error:", error);
+      console.error("GHL Webhook Error:", error);
       setToast({
         message:
           "Failed to send your inquiry. Please try again or contact us directly.",
@@ -442,13 +434,11 @@ const Contact = () => {
                   }}
                 >
                   <option value="">Select a service</option>
-
                   <optgroup label="Virtual Assistants">
                     <option value="Virtual Assistants">
                       Virtual Assistants (Starting at $900/month)
                     </option>
                   </optgroup>
-
                   <optgroup label="Web Design & Development">
                     <option value="Landing Page">Landing Page ($1,500)</option>
                     <option value="Business Website">
@@ -461,7 +451,6 @@ const Contact = () => {
                       Website Maintenance ($250-500/month)
                     </option>
                   </optgroup>
-
                   <optgroup label="Other">
                     <option value="Multiple Services">
                       Multiple Services (Custom Quote)
