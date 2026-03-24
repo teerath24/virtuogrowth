@@ -212,7 +212,9 @@ const Contact = () => {
           company: formData.company || "",
           service: formData.service,
           plan: formData.plan || "",
-          estimated_price: formData.estimatedPrice || "",
+          estimated_price: formData.estimatedPrice
+            ? parseFloat(formData.estimatedPrice.replace(/[^0-9.]/g, "")) || 0
+            : 0,
           message: formData.message || "",
           source: prefillInfo.source || "Direct contact form",
           timestamp: new Date().toLocaleString(),
