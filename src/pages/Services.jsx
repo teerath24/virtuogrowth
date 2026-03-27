@@ -505,6 +505,11 @@ const Services = () => {
             <span className="font-semibold">Website Maintenance:</span>{" "}
             $250-500/month
           </p>
+          <p className="text-slate-500 dark:text-slate-500 text-sm mt-2">
+            * Prices are starting rates. Final pricing may vary depending on
+            project complexity, custom features, and specific requirements. A
+            detailed quote will be provided after your free consultation.
+          </p>
         </div>
       </section>
 

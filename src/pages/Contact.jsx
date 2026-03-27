@@ -498,30 +498,37 @@ const Contact = () => {
             </div>
 
             {estimatedPriceInfo && (
-              <div className="bg-slate-50 dark:bg-slate-800/50 rounded-lg p-4 border border-slate-200 dark:border-slate-700">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-sm text-slate-600 dark:text-slate-400">
-                      Current Estimate
-                    </p>
-                    <p className="font-semibold text-slate-900 dark:text-white">
-                      {estimatedPriceInfo.price}
-                    </p>
-                    <p className="text-xs text-slate-500 dark:text-slate-500 mt-1">
-                      {formData.service || "Select a service"}
-                      {formData.plan && ` with ${formData.plan}`}
-                    </p>
-                  </div>
-                  <div className="text-right">
-                    <p className="text-sm text-slate-600 dark:text-slate-400">
-                      Price Updates Live
-                    </p>
-                    <p className="text-xs text-slate-500 dark:text-slate-500">
-                      Change selections above
-                    </p>
+              <>
+                <div className="bg-slate-50 dark:bg-slate-800/50 rounded-lg p-4 border border-slate-200 dark:border-slate-700">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm text-slate-600 dark:text-slate-400">
+                        Current Estimate
+                      </p>
+                      <p className="font-semibold text-slate-900 dark:text-white">
+                        {estimatedPriceInfo.price}
+                      </p>
+                      <p className="text-xs text-slate-500 dark:text-slate-500 mt-1">
+                        {formData.service || "Select a service"}
+                        {formData.plan && ` with ${formData.plan}`}
+                      </p>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-sm text-slate-600 dark:text-slate-400">
+                        Price Updates Live
+                      </p>
+                      <p className="text-xs text-slate-500 dark:text-slate-500">
+                        Change selections above
+                      </p>
+                    </div>
                   </div>
                 </div>
-              </div>
+                <p className="text-slate-500 dark:text-slate-500 text-xs mt-1">
+                  * This is a starting estimate. Final pricing may vary
+                  depending on project complexity and specific requirements. A
+                  detailed quote will be provided after your free consultation.
+                </p>
+              </>
             )}
 
             <div>
