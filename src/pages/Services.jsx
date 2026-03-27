@@ -98,7 +98,7 @@ const Services = () => {
 
         <div className="grid md:grid-cols-2 gap-12 max-w-5xl mx-auto">
           {/* Virtual Assistants Card */}
-          <div className="relative rounded-2xl p-8 bg-white dark:bg-slate-900 border-2 border-[#004F7F] dark:border-[#ECC600] transition-all duration-300 cursor-pointer group">
+          <div className="relative rounded-2xl p-8 bg-white dark:bg-slate-900 border-2 border-[#004F7F] dark:border-[#ECC600] transition-all duration-300 group">
             <div className="absolute -top-3 left-1/2 -translate-x-1/2">
               <span className="bg-[#ECC600] dark:bg-[#004F7F] text-[#004F7F] dark:text-[#ECC600] text-xs font-bold px-4 py-1 rounded-full">
                 MOST POPULAR
@@ -163,7 +163,7 @@ const Services = () => {
           </div>
 
           {/* Web Solutions Card */}
-          <div className="relative rounded-2xl p-8 bg-white dark:bg-slate-900 border-2 border-[#004F7F] dark:border-[#ECC600] transition-all duration-300 cursor-pointer group">
+          <div className="relative rounded-2xl p-8 bg-white dark:bg-slate-900 border-2 border-[#004F7F] dark:border-[#ECC600] transition-all duration-300 group">
             <div className="flex justify-center mb-6 text-[#004F7F] dark:text-[#ECC600]">
               <svg
                 className="w-16 h-16"
@@ -600,7 +600,7 @@ const PricingCard = ({
       onClick={onClick}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className={`relative rounded-2xl p-8 transition-all duration-300 hover:shadow-xl cursor-pointer group ${isSelected ? "bg-[#004F7F] dark:bg-[#ECC600] text-white dark:text-[#004F7F] border-2 border-[#004F7F] dark:border-[#ECC600] transform scale-105" : "bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 hover:border-[#004F7F]/30 dark:hover:border-[#ECC600]/30"}`}
+      className={`relative rounded-2xl p-8 transition-all duration-300 hover:shadow-xl group ${isSelected ? "bg-[#004F7F] dark:bg-[#ECC600] text-white dark:text-[#004F7F] border-2 border-[#004F7F] dark:border-[#ECC600] transform scale-105" : "bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 hover:border-[#004F7F]/30 dark:hover:border-[#ECC600]/30"}`}
     >
       {badge && (
         <div className="absolute -top-3 left-1/2 -translate-x-1/2">
@@ -663,7 +663,7 @@ const PricingCard = ({
           e.stopPropagation();
           onButtonClick();
         }}
-        className={`relative w-full py-3 rounded-full font-bold overflow-hidden transition-all duration-300 group-hover:scale-105 ${isHovered ? "scale-105" : ""}`}
+        className={`relative w-full cursor-pointer py-3 rounded-full font-bold overflow-hidden transition-all duration-300 group-hover:scale-105 ${isHovered ? "scale-105" : ""}`}
       >
         <div
           className={`absolute inset-0 ${isSelected ? "bg-white dark:bg-[#004F7F]" : "bg-[#004F7F] dark:bg-[#ECC600]"}`}
@@ -700,7 +700,7 @@ const WebProjectCard = ({
       onClick={onClick}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className={`relative rounded-2xl p-8 transition-all duration-300 hover:shadow-xl cursor-pointer group ${isSelected ? "bg-[#004F7F] dark:bg-[#ECC600] text-white dark:text-[#004F7F] border-2 border-[#004F7F] dark:border-[#ECC600] transform scale-105" : "bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 hover:border-[#004F7F]/30 dark:hover:border-[#ECC600]/30"}`}
+      className={`relative rounded-2xl p-8 transition-all duration-300 hover:shadow-xl group ${isSelected ? "bg-[#004F7F] dark:bg-[#ECC600] text-white dark:text-[#004F7F] border-2 border-[#004F7F] dark:border-[#ECC600] transform scale-105" : "bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 hover:border-[#004F7F]/30 dark:hover:border-[#ECC600]/30"}`}
     >
       {badge && (
         <div className="absolute -top-3 left-1/2 -translate-x-1/2">
@@ -754,7 +754,7 @@ const WebProjectCard = ({
           e.stopPropagation();
           onButtonClick();
         }}
-        className={`relative w-full py-3 rounded-full font-bold overflow-hidden transition-all duration-300 group-hover:scale-105 ${isHovered ? "scale-105" : ""}`}
+        className={` cursor-pointer relative w-full py-3 rounded-full font-bold overflow-hidden transition-all duration-300 group-hover:scale-105 ${isHovered ? "scale-105" : ""}`}
       >
         <div
           className={`absolute inset-0 ${isSelected ? "bg-white dark:bg-[#004F7F]" : "bg-[#004F7F] dark:bg-[#ECC600]"}`}
@@ -782,7 +782,7 @@ const ViewPricingButton = ({ onClick, text = "View VA Pricing" }) => {
       onClick={onClick}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="relative w-full py-3 rounded-full font-bold overflow-hidden transition-all duration-300 hover:scale-105"
+      className="relative w-full py-3 rounded-full cursor-pointer font-bold overflow-hidden transition-all duration-300 hover:scale-105"
     >
       <div className="absolute inset-0 bg-[#004F7F] dark:bg-[#ECC600]"></div>
       <div

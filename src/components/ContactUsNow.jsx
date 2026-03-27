@@ -57,7 +57,7 @@ const ContactUsNow = ({
       disabled={disabled}
       className={`
         relative rounded-full font-bold overflow-hidden 
-        transition-all duration-300 
+        transition-all duration-300 cursor-pointer
         ${
           !disabled
             ? "hover:scale-105 active:scale-95"

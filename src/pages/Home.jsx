@@ -192,7 +192,7 @@ const Home = () => {
 
                 <button
                   onClick={() => navigate("/services")}
-                  className="relative rounded-full font-bold px-8 py-4 transition-all duration-300 hover:scale-105 active:scale-95"
+                  className="relative rounded-full font-bold px-8 py-4 transition-all duration-300 cursor-pointer"
                   style={{
                     backgroundColor: isDark ? "#fff" : "#ECC600",
                     color: "#004F7F",
@@ -257,7 +257,7 @@ const Home = () => {
 
                 <button
                   onClick={() => navigate("/services")}
-                  className="relative rounded-full font-bold px-8 py-4 transition-all duration-300 hover:scale-105 active:scale-95"
+                  className="relative rounded-full font-bold px-8 py-4 transition-all duration-300"
                   style={{
                     backgroundColor: isDark ? "#fff" : "#ECC600",
                     color: "#004F7F",
@@ -322,7 +322,7 @@ const Home = () => {
 
                 <button
                   onClick={() => navigate("/services")}
-                  className="relative rounded-full font-bold px-8 py-4 transition-all duration-300 hover:scale-105 active:scale-95"
+                  className="relative rounded-full font-bold px-8 py-4 transition-all duration-300"
                   style={{
                     backgroundColor: isDark ? "#fff" : "#ECC600",
                     color: "#004F7F",

@@ -32,7 +32,7 @@ const ThemeToggle = () => {
       onClick={toggleTheme}
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="relative w-14 h-7 rounded-full bg-slate-200 dark:bg-slate-700 transition-colors duration-300 flex items-center px-1"
+      className="relative w-14 h-7 cursor-pointer rounded-full bg-slate-200 dark:bg-slate-700 transition-colors duration-300 flex items-center px-1"
       style={{
         transform: `translate(${xy.x}px, ${xy.y}px)`,
         transition: "transform 0.1s ease-out",
@@ -174,12 +174,12 @@ const HireTalentButton = () => {
     >
       <div className="absolute inset-0 bg-[#004F7F] dark:bg-[#ECC600]"></div>
       <div
-        className="absolute inset-0 bg-[#ECC600] dark:bg-[#fff] transition-all duration-700 ease-out"
+        className="absolute inset-0 bg-[#ECC600] dark:bg-[#fff] transition-all duration-700 ease-out cursor-pointer"
         style={{
           transform: isHovered ? "translateY(0%)" : "translateY(100%)",
         }}
       />
-      <span className="relative z-10 text-white dark:text-[#004F7F]">
+      <span className="cursor-pointer relative z-10 text-white dark:text-[#004F7F]">
         Hire Talent
       </span>
     </button>
@@ -221,7 +221,7 @@ const HamburgerButton = ({ isScrolled, isMenuOpen, onClick }) => {
       onMouseMove={handleMouseMove}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}
-      className={`fixed top-8 right-8 z-[60] w-20 h-20 rounded-full bg-[#004F7F] dark:bg-slate-800 border border-[#003F66] dark:border-slate-700 flex items-center justify-center transition-all duration-300 hover:scale-105 overflow-hidden focus:outline-none focus:ring-0 focus-visible:ring-0 ${
+      className={`fixed top-8 right-8 z-[60] w-20 h-20 cursor-pointer rounded-full bg-[#004F7F] dark:bg-slate-800 border border-[#003F66] dark:border-slate-700 flex items-center justify-center transition-all duration-300 hover:scale-105 overflow-hidden focus:outline-none focus:ring-0 focus-visible:ring-0 ${
         isScrolled
           ? "opacity-100 pointer-events-auto"
           : "opacity-0 pointer-events-none md:opacity-0 md:pointer-events-none"
@@ -276,10 +276,6 @@ const Navbar = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
-
-  // FIXED: Remove the useEffect that causes the warning
-  // The NavItem component already uses location.pathname for active state
-  // So we don't need to setActiveLink based on location changes
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 

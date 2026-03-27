@@ -551,7 +551,7 @@ const Contact = () => {
                 disabled={isSubmitting}
                 onMouseEnter={() => setIsHovered(true)}
                 onMouseLeave={() => setIsHovered(false)}
-                className="relative w-full md:w-auto px-8 py-4 rounded-full font-bold overflow-hidden transition-all duration-300 hover:scale-105 group border-2 border-[#004F7F] dark:border-[#ECC600] disabled:opacity-50 disabled:cursor-not-allowed"
+                className="relative w-full md:w-auto px-8 py-4 rounded-full font-bold overflow-hidden transition-all duration-300 hover:scale-105 group disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
               >
                 <div className="absolute inset-0 bg-[#004F7F] dark:bg-[#ECC600]"></div>
                 <div
@@ -563,7 +563,7 @@ const Contact = () => {
                   }}
                 />
                 <span className="relative z-10 text-white dark:text-[#004F7F]">
-                  {isSubmitting ? "Sending..." : "Get Your Custom Quote"}
+                  {isSubmitting ? "Sending..." : "Let’s Get Started"}
                 </span>
               </button>
 
