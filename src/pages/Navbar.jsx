@@ -170,23 +170,23 @@ const HireTalentButton = () => {
       onClick={() => navigate("/contact")}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
-      className="relative ml-4 px-6 py-2 rounded-full text-sm font-bold overflow-hidden transition-all duration-300 active:scale-95"
+      className="relative ml-4 px-6 py-2 rounded-full text-sm font-bold overflow-hidden transition-all duration-300 active:scale-95 cursor-pointer"
     >
       <div className="absolute inset-0 bg-[#004F7F] dark:bg-[#ECC600]"></div>
       <div
-        className="absolute inset-0 bg-[#ECC600] dark:bg-[#fff] transition-all duration-700 ease-out cursor-pointer"
+        className="absolute inset-0 bg-[#ECC600] dark:bg-[#fff] transition-all duration-700 ease-out"
         style={{
           transform: isHovered ? "translateY(0%)" : "translateY(100%)",
         }}
       />
-      <span className="cursor-pointer relative z-10 text-white dark:text-[#004F7F]">
+      <span className="relative z-10 text-white dark:text-[#004F7F]">
         Hire Talent
       </span>
     </button>
   );
 };
 
-// --- Hamburger Menu Button Component with Animated X and Water Fill ---
+// --- Hamburger Button Component ---
 const HamburgerButton = ({ isScrolled, isMenuOpen, onClick }) => {
   const [xy, setXY] = useState({ x: 0, y: 0 });
   const [isHovered, setIsHovered] = useState(false);
@@ -205,10 +205,7 @@ const HamburgerButton = ({ isScrolled, isMenuOpen, onClick }) => {
     }
   };
 
-  const handleMouseEnter = () => {
-    setIsHovered(true);
-  };
-
+  const handleMouseEnter = () => setIsHovered(true);
   const handleMouseLeave = () => {
     setXY({ x: 0, y: 0 });
     setIsHovered(false);
@@ -224,7 +221,7 @@ const HamburgerButton = ({ isScrolled, isMenuOpen, onClick }) => {
       className={`fixed top-8 right-8 z-[60] w-20 h-20 cursor-pointer rounded-full bg-[#004F7F] dark:bg-slate-800 border border-[#003F66] dark:border-slate-700 flex items-center justify-center transition-all duration-300 hover:scale-105 overflow-hidden focus:outline-none focus:ring-0 focus-visible:ring-0 ${
         isScrolled
           ? "opacity-100 pointer-events-auto"
-          : "opacity-0 pointer-events-none md:opacity-0 md:pointer-events-none"
+          : "opacity-0 pointer-events-none"
       }`}
       style={{
         transform: `translate(${xy.x}px, ${xy.y}px)`,
@@ -261,27 +258,42 @@ const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
 
-  // UPDATED: Added /about to navItems
+  // Sync Ref to prevent stale closures and render errors
+  const menuOpenRef = useRef(false);
+
   const navItems = [
     { name: "Services", href: "/services" },
-    { name: "About Us", href: "/about" }, // Changed from #about to /about
+    { name: "About Us", href: "/about" },
     { name: "Contact", href: "/contact" },
   ];
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 100);
+      const currentScrollY = window.scrollY;
+      const scrolled = currentScrollY > 100;
+      setIsScrolled(scrolled);
+
+      // Force close using ref to avoid React state sync delays or cascading errors
+      if (currentScrollY <= 100 && menuOpenRef.current) {
+        setIsMenuOpen(false);
+        menuOpenRef.current = false;
+      }
     };
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
+  const toggleMenu = () => {
+    const newState = !isMenuOpen;
+    setIsMenuOpen(newState);
+    menuOpenRef.current = newState;
+  };
 
   const handleNavClick = (href) => {
     setActiveLink(href);
     setIsMenuOpen(false);
+    menuOpenRef.current = false;
 
     if (href.startsWith("#")) {
       const element = document.querySelector(href);
@@ -296,7 +308,7 @@ const Navbar = () => {
   return (
     <>
       <nav
-        className={`fixed top-0 left-0 w-full z-[100] transition-all duration-500 px-6 md:px-12  flex justify-between items-center ${
+        className={`fixed top-0 left-0 w-full z-[100] transition-all duration-500 px-6 md:px-12 flex justify-between items-center ${
           isScrolled ? "opacity-0 pointer-events-none" : "bg-transparent"
         }`}
       >
@@ -353,31 +365,13 @@ const Navbar = () => {
                     ? location.pathname === item.href
                     : activeLink === item.href;
 
-                  if (item.href.startsWith("/")) {
-                    return (
-                      <li key={item.name}>
-                        <Link
-                          to={item.href}
-                          onClick={() => setIsMenuOpen(false)}
-                          className={`text-5xl md:text-6xl font-light transition-colors duration-300 block ${
-                            isActive
-                              ? "text-[#ECC600]"
-                              : "text-white hover:text-[#ECC600]"
-                          }`}
-                        >
-                          {item.name}
-                        </Link>
-                      </li>
-                    );
-                  }
-
                   return (
                     <li key={item.name}>
-                      <a
-                        href={item.href}
-                        onClick={(e) => {
-                          e.preventDefault();
-                          handleNavClick(item.href);
+                      <Link
+                        to={item.href}
+                        onClick={() => {
+                          setIsMenuOpen(false);
+                          menuOpenRef.current = false;
                         }}
                         className={`text-5xl md:text-6xl font-light transition-colors duration-300 block ${
                           isActive
@@ -386,7 +380,7 @@ const Navbar = () => {
                         }`}
                       >
                         {item.name}
-                      </a>
+                      </Link>
                     </li>
                   );
                 })}
@@ -397,11 +391,17 @@ const Navbar = () => {
           <div className="mt-auto border-t border-white/10 pt-8">
             <p className="text-white/50 text-xs mb-4 tracking-wider">SOCIALS</p>
             <div className="flex gap-6 font-bold text-white">
-              <a href="#" className="transition-colors hover:text-[#ECC600]">
+              <a
+                href="https://www.linkedin.com/company/virtuogrowth-partners/"
+                className="transition-colors hover:text-[#ECC600]"
+              >
                 LinkedIn
               </a>
-              <a href="#" className="transition-colors hover:text-[#ECC600]">
-                Instagram
+              <a
+                href="https://www.facebook.com/profile.php?id=61586160104825"
+                className="transition-colors hover:text-[#ECC600]"
+              >
+                Facebook
               </a>
             </div>
           </div>
@@ -409,7 +409,10 @@ const Navbar = () => {
       </div>
 
       {isMenuOpen && (
-        <div className="fixed inset-0 bg-black/50 z-40" onClick={toggleMenu} />
+        <div
+          className="fixed inset-0 bg-black/50 z-40 cursor-pointer"
+          onClick={toggleMenu}
+        />
       )}
     </>
   );
