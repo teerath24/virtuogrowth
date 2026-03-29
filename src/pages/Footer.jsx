@@ -121,10 +121,10 @@ const Footer = () => {
             <ul className="space-y-3">
               <li>
                 <a
-                  href="/services#core-services"
+                  href="/services#va-pricing"
                   onClick={(e) => {
                     e.preventDefault();
-                    handleFooterLinkClick("/services#core-services");
+                    handleFooterLinkClick("/services#va-pricing");
                   }}
                   className="text-white/80 hover:text-[#ECC600] transition-colors text-sm block"
                 >
@@ -133,10 +133,10 @@ const Footer = () => {
               </li>
               <li>
                 <a
-                  href="/services#core-services"
+                  href="/services#web-pricing"
                   onClick={(e) => {
                     e.preventDefault();
-                    handleFooterLinkClick("/services#core-services");
+                    handleFooterLinkClick("/services#web-pricing");
                   }}
                   className="text-white/80 hover:text-[#ECC600] transition-colors text-sm block"
                 >
@@ -145,10 +145,10 @@ const Footer = () => {
               </li>
               <li>
                 <a
-                  href="/services#core-services"
+                  href="/services#web-pricing"
                   onClick={(e) => {
                     e.preventDefault();
-                    handleFooterLinkClick("/services#core-services");
+                    handleFooterLinkClick("/services#web-pricing");
                   }}
                   className="text-white/80 hover:text-[#ECC600] transition-colors text-sm block"
                 >
