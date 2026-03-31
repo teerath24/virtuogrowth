@@ -518,10 +518,21 @@ const Services = () => {
         <h2 className="text-4xl font-bold text-white mb-4">
           Ready to Build Your Remote Team?
         </h2>
-        <p className="text-white/80 mb-8 max-w-2xl mx-auto">
+        <p className="text-white/80 mb-4 max-w-2xl mx-auto">
           Join hundreds of companies that trust Virtuo to connect them with
           world-class remote professionals.
         </p>
+        <p className="text-white/60 mb-8 text-sm">
+          Questions? Email us at{" "}
+          <a
+            href="mailto:info@virtuogrowth.com"
+            className="relative group text-[#ECC600] transition-colors"
+          >
+            info@virtuogrowth.com
+            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#ECC600] transition-all duration-300 group-hover:w-full"></span>
+          </a>
+        </p>
+
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
           <button
             onClick={() => navigate("/contact")}

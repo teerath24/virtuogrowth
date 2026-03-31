@@ -567,9 +567,20 @@ const Contact = () => {
                 </span>
               </button>
 
-              <p className="text-sm text-slate-500 dark:text-slate-400 mt-4 text-center md:text-left">
+              <p className="text-sm text-slate-500 dark:text-slate-400 mt-4 text-center">
                 By submitting, you agree to our Terms of Service. We'll contact
                 you within 24 hours.
+              </p>
+              <p className="text-sm text-slate-500 dark:text-slate-400 mt-2 text-center">
+                Or reach out directly at{" "}
+                <a
+                  href="mailto:info@virtuogrowth.com"
+                  className="relative group text-[#004F7F] dark:text-[#ECC600] font-medium transition-colors"
+                >
+                  info@virtuogrowth.com
+                  {/* This is the animated underline */}
+                  <span className="absolute -bottom-0.5 left-0 w-0 h-0.5 bg-[#004F7F] dark:bg-[#ECC600] transition-all duration-300 group-hover:w-full"></span>
+                </a>
               </p>
             </div>
           </form>

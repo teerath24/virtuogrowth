@@ -255,6 +255,14 @@ const Footer = () => {
                   LinkedIn
                 </a>
               </li>
+              <li>
+                <a
+                  href="mailto:info@virtuogrowth.com"
+                  className="text-white/80 hover:text-[#ECC600] transition-colors text-sm block"
+                >
+                  info@virtuogrowth.com
+                </a>
+              </li>
             </ul>
           </div>
         </div>
