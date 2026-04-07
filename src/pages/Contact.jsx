@@ -79,7 +79,7 @@ const Contact = () => {
     "Part-Time": 1500,
     "Full-Time": 2800,
     Enterprise: 0,
-    "Landing Page": 1500,
+    "Landing Page": 850,
     "Business Website": 3500,
     "E-Commerce Store": 5500,
     "Website Maintenance": 375,
@@ -444,7 +444,7 @@ const Contact = () => {
                     </option>
                   </optgroup>
                   <optgroup label="Web Design & Development">
-                    <option value="Landing Page">Landing Page ($1,500)</option>
+                    <option value="Landing Page">Landing Page ($850)</option>
                     <option value="Business Website">
                       Business Website ($3,500)
                     </option>

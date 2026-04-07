@@ -209,7 +209,7 @@ const Services = () => {
               </div>
               <div className="flex items-end gap-2 justify-center">
                 <span className="text-4xl font-bold text-slate-900 dark:text-white">
-                  $1,500
+                  $850
                 </span>
                 <span className="text-sm mb-1 opacity-80 text-slate-600 dark:text-slate-300">
                   per project
@@ -448,19 +448,16 @@ const Services = () => {
           <WebProjectCard
             title="Landing Page"
             subtitle="Single page, conversion-focused"
-            price="$1,500"
+            price="$850"
             features={[
               "1 page design",
               "Mobile responsive",
-              "Contact form",
               "2 revisions",
               "7-day delivery",
             ]}
             isSelected={selectedWebProject === "Landing Page"}
             onClick={() => handleWebProjectCardClick("Landing Page")}
-            onButtonClick={() =>
-              handleWebProjectSelect("Landing Page", "$1,500")
-            }
+            onButtonClick={() => handleWebProjectSelect("Landing Page", "$850")}
           />
           <WebProjectCard
             badge="MOST POPULAR"
