@@ -452,7 +452,8 @@ const Contact = () => {
                       E-Commerce Store ($5,500)
                     </option>
                     <option value="Website Maintenance">
-                      Website Maintenance ($250-500/month)
+                      Website Maintenance ($250-500/month): Updates, fixes &
+                      ongoing support
                     </option>
                   </optgroup>
                   <optgroup label="Other">

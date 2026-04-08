@@ -466,8 +466,7 @@ const Services = () => {
             price="$3,500"
             features={[
               "5-7 pages",
-              "CMS (WordPress)",
-              "SEO ready",
+              "CMS",
               "Contact forms",
               "3 revisions",
               "14-day delivery",
@@ -499,8 +498,13 @@ const Services = () => {
         </div>
         <div className="text-center mt-12">
           <p className="text-slate-600 dark:text-slate-400">
-            <span className="font-semibold">Website Maintenance:</span>{" "}
-            $250-500/month
+            <span className="font-semibold">
+              Website Maintenance ($250–$500/month):
+            </span>{" "}
+            Ongoing support for your existing website — includes content
+            updates, bug fixes, security & plugin updates, speed optimization,
+            and minor design adjustments. Excludes full redesigns or new feature
+            development.
           </p>
           <p className="text-slate-500 dark:text-slate-500 text-sm mt-2">
             * Prices are starting rates. Final pricing may vary depending on
