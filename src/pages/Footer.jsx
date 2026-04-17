@@ -267,17 +267,31 @@ const Footer = () => {
           </div>
         </div>
 
+        {/* CTA before bottom bar */}
+        <div className="flex flex-col md:flex-row items-center justify-between py-10 border-t border-[#2a2a2a] mb-0">
+          <p className="text-white/60 text-sm mb-4 md:mb-0">
+            Ready to scale your team with world-class remote talent?
+          </p>
+          <p
+            onClick={() => navigate("/contact")}
+            className="relative group text-[#ECC600] font-bold text-sm cursor-pointer"
+          >
+            Contact Us
+            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#ECC600] transition-all duration-300 group-hover:w-full"></span>
+          </p>
+        </div>
+
         {/* Bottom Bar */}
         <div className="flex flex-col md:flex-row justify-between items-center pt-8 border-t border-[#2a2a2a] text-sm text-white/50">
-          <p>© Virtuo – 2025</p>
+          <p>© VirtuoGrowth Partners – 2025</p>
           <div className="flex gap-6 mt-4 md:mt-0">
-            <a href="#" className="hover:text-white transition-colors">
+            <Link to="/terms" className="hover:text-white transition-colors">
               Terms
-            </a>
+            </Link>
             <span>•</span>
-            <a href="#" className="hover:text-white transition-colors">
+            <Link to="/privacy" className="hover:text-white transition-colors">
               Privacy
-            </a>
+            </Link>
           </div>
         </div>
       </div>

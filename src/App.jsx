@@ -10,6 +10,8 @@ import Apply from "./pages/Apply";
 import ThankYou from "./pages/ThankYou";
 import Navbar from "./pages/Navbar";
 import Footer from "./pages/Footer";
+import Privacy from "./pages/Privacy";
+import Terms from "./pages/Terms";
 import "./App.css";
 
 function ScrollToTop() {
@@ -35,6 +37,8 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/apply" element={<Apply />} />
           <Route path="/thank-you" element={<ThankYou />} />
+          <Route path="/terms" element={<Terms />} />
+          <Route path="/privacy" element={<Privacy />} />
         </Routes>
         <Footer />
       </Router>
