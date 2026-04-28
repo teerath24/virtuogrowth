@@ -19,7 +19,7 @@ import { useNavigate } from "react-router-dom";
 
 const ContactUsNow = ({
   to = "/contact",
-  text = "Contact Us Now",
+  text = "Find My Match",
   className = "",
   onClick,
   style = {},

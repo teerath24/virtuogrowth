@@ -276,7 +276,7 @@ const Footer = () => {
             onClick={() => navigate("/contact")}
             className="relative group text-[#ECC600] font-bold text-sm cursor-pointer"
           >
-            Contact Us
+            Find My Match
             <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#ECC600] transition-all duration-300 group-hover:w-full"></span>
           </p>
         </div>
