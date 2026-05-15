@@ -1,0 +1,594 @@
+"use client";
+import React, { useState, Suspense } from "react";
+import { useRouter, useSearchParams } from "next/navigation";
+
+const GHL_WEBHOOK_URL =
+  "https://services.leadconnectorhq.com/hooks/QxAJ5A0z5KoJoLehFMzL/webhook-trigger/b3f09570-5093-4708-b877-2c63d73c581e";
+
+const Toast = ({ message, type, onClose }) => {
+  React.useEffect(() => {
+    const timer = setTimeout(() => {
+      onClose();
+    }, 2000);
+    return () => clearTimeout(timer);
+  }, [onClose]);
+
+  return (
+    <div
+      className={`fixed z-[9999] px-6 py-4 rounded-lg shadow-lg flex items-center gap-3 animate-slide-down ${type === "success" ? "bg-green-500 dark:bg-green-600" : "bg-red-500 dark:bg-red-600"}`}
+      style={{ top: "2rem", left: "50%", transform: "translateX(-50%)" }}
+    >
+      <span className="text-white text-sm font-medium">{message}</span>
+      <button
+        onClick={onClose}
+        className="text-white hover:text-gray-200 transition-colors"
+      >
+        <svg
+          className="w-4 h-4"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M6 18L18 6M6 6l12 12"
+          />
+        </svg>
+      </button>
+    </div>
+  );
+};
+
+function ContactForm() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const serviceParam = searchParams.get("service") || "";
+  const planParam = searchParams.get("plan") || "";
+
+  const prefillInfo = {
+    service: serviceParam || null,
+    plan: planParam || null,
+    estimatedPrice: null,
+    source: serviceParam || planParam ? "pricing_section" : null,
+  };
+
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    company: "",
+    phone: "",
+    service: serviceParam,
+    plan: planParam,
+    message: "",
+    estimatedPrice: "",
+  });
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [toast, setToast] = useState(null);
+  const [isHovered, setIsHovered] = useState(false);
+
+  const priceMap = {
+    "Virtual Assistants": 900,
+    Starter: 900,
+    "Part-Time": 1500,
+    "Full-Time": 2800,
+    Enterprise: 0,
+    "Landing Page": 850,
+    "Business Website": 3500,
+    "E-Commerce Store": 5500,
+    "Website Maintenance": 375,
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const calculateEstimatedPrice = () => {
+    if (!formData.service && !formData.plan) return null;
+    let price = 0,
+      description = "",
+      priceText = "";
+    const isWebProject = [
+      "Landing Page",
+      "Business Website",
+      "E-Commerce Store",
+    ].includes(formData.service);
+    const isMaintenance = formData.service === "Website Maintenance";
+
+    if (formData.service && formData.plan) {
+      if (formData.service === "Virtual Assistants") {
+        price = priceMap[formData.plan] || 0;
+        description = `Virtual Assistant (${formData.plan})`;
+        priceText = `$${price}/month`;
+      } else {
+        price = priceMap[formData.service] || 0;
+        description = formData.service;
+        priceText = `$${price}`;
+      }
+    } else if (formData.service) {
+      price = priceMap[formData.service] || 0;
+      description = formData.service;
+      if (isWebProject) priceText = `$${price} one-time`;
+      else if (isMaintenance) priceText = "$250-500/month";
+      else priceText = `$${price}/month`;
+    } else if (formData.plan) {
+      price = priceMap[formData.plan] || 0;
+      description = formData.plan;
+      priceText = `$${price}/month`;
+    }
+
+    if (formData.plan === "Enterprise")
+      return {
+        price: "Custom Quote",
+        description: "Enterprise Plan (Custom Pricing)",
+      };
+    return { price: priceText, description };
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!formData.name || !formData.email || !formData.service) {
+      setToast({
+        message: "Please fill in all required fields",
+        type: "error",
+      });
+      return;
+    }
+    if (formData.service === "Virtual Assistants" && !formData.plan) {
+      setToast({
+        message:
+          "Please select an engagement model for Virtual Assistant service",
+        type: "error",
+      });
+      return;
+    }
+    setIsSubmitting(true);
+    try {
+      await fetch(GHL_WEBHOOK_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          first_name: formData.name,
+          email: formData.email,
+          phone: formData.phone || "",
+          company: formData.company || "",
+          service: formData.service,
+          plan: formData.plan || "",
+          estimated_price: (() => {
+            const info = calculateEstimatedPrice();
+            if (!info || info.price === "Custom Quote") return 0;
+            return parseFloat(info.price.replace(/[^0-9.]/g, "")) || 0;
+          })(),
+          message: formData.message || "",
+          source: prefillInfo.source || "Direct contact form",
+          timestamp: new Date().toLocaleString(),
+        }),
+      });
+      setToast({
+        message: "Success! Redirecting to confirmation page...",
+        type: "success",
+      });
+      setTimeout(() => {
+        router.replace("/thank-you?type=client");
+      }, 1500);
+    } catch (error) {
+      console.error("GHL Webhook Error:", error);
+      setToast({
+        message:
+          "Failed to send your inquiry. Please try again or contact us directly.",
+        type: "error",
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const estimatedPriceInfo = calculateEstimatedPrice();
+
+  return (
+    <main className="min-h-screen bg-gradient-to-b from-slate-50 to-white dark:from-slate-900 dark:to-slate-900 pt-32 pb-16 px-6">
+      {toast && (
+        <Toast
+          message={toast.message}
+          type={toast.type}
+          onClose={() => setToast(null)}
+        />
+      )}
+      <div className="max-w-4xl mx-auto">
+        <div className="text-center mb-12">
+          <h1 className="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-4">
+            Get Your Custom Quote
+          </h1>
+          <p className="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">
+            Tell us about your needs and we&apos;ll match you with the perfect
+            talent solution.
+          </p>
+        </div>
+
+        {prefillInfo.service || prefillInfo.plan ? (
+          <div className="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl p-6 mb-8">
+            <div className="flex items-start gap-4">
+              <div className="bg-blue-100 dark:bg-blue-800 p-2 rounded-lg">
+                <svg
+                  className="w-6 h-6 text-blue-600 dark:text-blue-300"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
+                </svg>
+              </div>
+              <div>
+                <h3 className="font-semibold text-blue-900 dark:text-blue-100 mb-1">
+                  Personalized Form
+                </h3>
+                <p className="text-blue-700 dark:text-blue-300 text-sm">
+                  {prefillInfo.service && prefillInfo.plan ? (
+                    <>
+                      We&apos;ve pre-filled your request for{" "}
+                      <span className="font-semibold">
+                        {prefillInfo.service}
+                      </span>{" "}
+                      with{" "}
+                      <span className="font-semibold">{prefillInfo.plan}</span>{" "}
+                      plan.
+                    </>
+                  ) : prefillInfo.service ? (
+                    <>
+                      We&apos;ve pre-selected{" "}
+                      <span className="font-semibold">
+                        {prefillInfo.service}
+                      </span>{" "}
+                      based on your selection.
+                    </>
+                  ) : (
+                    <>
+                      We&apos;ve pre-selected{" "}
+                      <span className="font-semibold">{prefillInfo.plan}</span>{" "}
+                      plan based on your selection.
+                    </>
+                  )}
+                </p>
+              </div>
+            </div>
+          </div>
+        ) : null}
+
+        {estimatedPriceInfo && (
+          <div className="bg-gradient-to-r from-[#004F7F] to-[#0066A5] dark:from-[#ECC600] dark:to-[#FFD700] rounded-xl p-6 mb-8 text-white dark:text-[#004F7F] shadow-lg">
+            <div className="flex flex-col md:flex-row md:items-center justify-between">
+              <div>
+                <p className="text-sm opacity-90 mb-1">Estimated Cost</p>
+                <h3 className="text-3xl font-bold">
+                  {estimatedPriceInfo.price}
+                </h3>
+                <p className="text-sm opacity-90 mt-1">
+                  {estimatedPriceInfo.description}
+                </p>
+              </div>
+              <div className="mt-4 md:mt-0">
+                <div className="inline-flex items-center gap-2 bg-white/20 dark:bg-[#004F7F]/20 px-4 py-2 rounded-full">
+                  <svg
+                    className="w-6 h-6 text-[#fff] dark:text-[#004F7F]"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z"
+                    />
+                  </svg>
+                  <span className="text-sm font-medium">
+                    No commitment required
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        )}
+
+        <div className="bg-white dark:bg-slate-900 rounded-2xl shadow-xl p-8">
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div className="grid md:grid-cols-2 gap-6">
+              <div>
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                  Full Name *
+                </label>
+                <input
+                  type="text"
+                  name="name"
+                  required
+                  value={formData.name}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-[#004F7F] dark:focus:ring-[#ECC600] focus:border-transparent transition-colors"
+                  placeholder="John Smith"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                  Email Address *
+                </label>
+                <input
+                  type="email"
+                  name="email"
+                  required
+                  value={formData.email}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-[#004F7F] dark:focus:ring-[#ECC600] focus:border-transparent transition-colors"
+                  placeholder="john@company.com"
+                />
+              </div>
+            </div>
+            <div className="grid md:grid-cols-2 gap-6">
+              <div>
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                  Company Name
+                </label>
+                <input
+                  type="text"
+                  name="company"
+                  value={formData.company}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-[#004F7F] dark:focus:ring-[#ECC600] focus:border-transparent transition-colors"
+                  placeholder="Acme Inc."
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                  Phone Number
+                </label>
+                <input
+                  type="tel"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-[#004F7F] dark:focus:ring-[#ECC600] focus:border-transparent transition-colors"
+                  placeholder="+1 (555) 123-4567"
+                />
+              </div>
+            </div>
+            <div className="grid md:grid-cols-2 gap-6">
+              <div>
+                <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                  Service Needed *
+                </label>
+                <select
+                  name="service"
+                  required
+                  value={formData.service}
+                  onChange={handleInputChange}
+                  className="w-full px-4 py-3 pr-10 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-[#004F7F] dark:focus:ring-[#ECC600] focus:border-transparent transition-colors appearance-none cursor-pointer"
+                  style={{
+                    backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23475569'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E")`,
+                    backgroundPosition: "right 0.75rem center",
+                    backgroundRepeat: "no-repeat",
+                    backgroundSize: "1.5em 1.5em",
+                  }}
+                >
+                  <option value="">Select a service</option>
+                  <optgroup label="Virtual Assistants">
+                    <option value="Virtual Assistants">
+                      Virtual Assistants (Starting at $900/month)
+                    </option>
+                  </optgroup>
+                  <optgroup label="Web Design & Development">
+                    <option value="Landing Page">Landing Page ($850)</option>
+                    <option value="Business Website">
+                      Business Website ($3,500)
+                    </option>
+                    <option value="E-Commerce Store">
+                      E-Commerce Store ($5,500)
+                    </option>
+                    <option value="Website Maintenance">
+                      Website Maintenance ($250-500/month): Updates, fixes &
+                      ongoing support
+                    </option>
+                  </optgroup>
+                  <optgroup label="Other">
+                    <option value="Multiple Services">
+                      Multiple Services (Custom Quote)
+                    </option>
+                  </optgroup>
+                </select>
+              </div>
+              {formData.service === "Virtual Assistants" && (
+                <div>
+                  <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                    Engagement Model *
+                  </label>
+                  <select
+                    name="plan"
+                    required
+                    value={formData.plan}
+                    onChange={handleInputChange}
+                    className="w-full px-4 py-3 pr-10 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white focus:ring-2 focus:ring-[#004F7F] dark:focus:ring-[#ECC600] focus:border-transparent transition-colors appearance-none cursor-pointer"
+                    style={{
+                      backgroundImage: `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%23475569'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E")`,
+                      backgroundPosition: "right 0.75rem center",
+                      backgroundRepeat: "no-repeat",
+                      backgroundSize: "1.5em 1.5em",
+                    }}
+                  >
+                    <option value="">Select a plan</option>
+                    <option value="Starter">
+                      Starter (10hrs/week - $900/month)
+                    </option>
+                    <option value="Part-Time">
+                      Part-Time (20hrs/week - $1,500/month)
+                    </option>
+                    <option value="Full-Time">
+                      Full-Time (40hrs/week - $2,800/month)
+                    </option>
+                    <option value="Enterprise">Enterprise (Custom)</option>
+                  </select>
+                </div>
+              )}
+            </div>
+
+            {estimatedPriceInfo && (
+              <>
+                <div className="bg-slate-50 dark:bg-slate-800/50 rounded-lg p-4 border border-slate-200 dark:border-slate-700">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <p className="text-sm text-slate-600 dark:text-slate-400">
+                        Current Estimate
+                      </p>
+                      <p className="font-semibold text-slate-900 dark:text-white">
+                        {estimatedPriceInfo.price}
+                      </p>
+                      <p className="text-xs text-slate-500 dark:text-slate-500 mt-1">
+                        {formData.service || "Select a service"}
+                        {formData.plan && ` with ${formData.plan}`}
+                      </p>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-sm text-slate-600 dark:text-slate-400">
+                        Price Updates Live
+                      </p>
+                      <p className="text-xs text-slate-500 dark:text-slate-500">
+                        Change selections above
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <p className="text-slate-500 dark:text-slate-500 text-xs mt-1">
+                  * This is a starting estimate. Final pricing may vary
+                  depending on project complexity and specific requirements. A
+                  detailed quote will be provided after your free consultation.
+                </p>
+              </>
+            )}
+
+            <div>
+              <label className="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">
+                Project Details / Additional Requirements
+              </label>
+              <textarea
+                name="message"
+                rows={4}
+                value={formData.message}
+                onChange={handleInputChange}
+                placeholder="Tell us about your needs and we'll match you with the perfect talent solution..."
+                className="w-full px-4 py-3 rounded-lg border border-slate-300 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500 focus:ring-2 focus:ring-[#004F7F] dark:focus:ring-[#ECC600] focus:border-transparent transition-colors resize-none"
+              />
+            </div>
+
+            <div className="pt-4 flex flex-col items-center">
+              <button
+                type="submit"
+                disabled={isSubmitting}
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
+                className="relative w-full md:w-auto px-8 py-4 rounded-full font-bold overflow-hidden transition-all duration-300 hover:scale-105 group disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+              >
+                <div className="absolute inset-0 bg-[#004F7F] dark:bg-[#ECC600]"></div>
+                <div
+                  className="absolute inset-0 bg-[#ECC600] dark:bg-white transition-all duration-700 ease-out"
+                  style={{
+                    transform: isHovered
+                      ? "translateY(0%)"
+                      : "translateY(100%)",
+                  }}
+                />
+                <span className="relative z-10 text-white dark:text-[#004F7F]">
+                  {isSubmitting ? "Sending..." : "Let's Get Started"}
+                </span>
+              </button>
+              <p className="text-sm text-slate-500 dark:text-slate-400 mt-4 text-center">
+                By submitting, you agree to our Terms of Service. We&apos;ll
+                contact you within 24 hours.
+              </p>
+              <p className="text-sm text-slate-500 dark:text-slate-400 mt-2 text-center">
+                Or reach out directly at{" "}
+                <a
+                  href="mailto:info@virtuogrowth.com"
+                  className="relative group text-[#004F7F] dark:text-[#ECC600] font-medium transition-colors"
+                >
+                  info@virtuogrowth.com
+                  <span className="absolute -bottom-0.5 left-0 w-0 h-0.5 bg-[#004F7F] dark:bg-[#ECC600] transition-all duration-300 group-hover:w-full"></span>
+                </a>
+              </p>
+            </div>
+          </form>
+        </div>
+
+        <div className="grid md:grid-cols-3 gap-6 mt-12">
+          {[
+            {
+              title: "No Commitment",
+              desc: "Free consultation, no obligation to hire",
+              icon: "M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z",
+            },
+            {
+              title: "Fast Matching",
+              desc: "Get matched with qualified talent within 48 hours",
+              icon: "M13 10V3L4 14h7v7l9-11h-7z",
+            },
+            {
+              title: "Dedicated Support",
+              desc: "Personal account manager for ongoing assistance",
+              icon: "M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z",
+            },
+          ].map((item) => (
+            <div key={item.title} className="text-center">
+              <div className="w-12 h-12 bg-[#004F7F]/10 dark:bg-[#ECC600]/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                <svg
+                  className="w-6 h-6 text-[#004F7F] dark:text-[#ECC600]"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d={item.icon}
+                  />
+                </svg>
+              </div>
+              <h4 className="font-semibold text-slate-900 dark:text-white mb-2">
+                {item.title}
+              </h4>
+              <p className="text-sm text-slate-600 dark:text-slate-400">
+                {item.desc}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+      <style>{`
+@keyframes slide-down {
+  from { transform: translate(-50%, -100%); opacity: 0; }
+  to { transform: translate(-50%, 0); opacity: 1; }
+}
+.animate-slide-down { animation: slide-down 0.3s ease-out forwards; }
+`}</style>
+    </main>
+  );
+}
+
+export default function Contact() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen flex items-center justify-center">
+          <p className="text-slate-600">Loading...</p>
+        </div>
+      }
+    >
+      <ContactForm />
+    </Suspense>
+  );
+}
