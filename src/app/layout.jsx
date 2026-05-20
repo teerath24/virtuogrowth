@@ -28,6 +28,9 @@ export const metadata = {
       "Connect your business with pre-vetted Virtual Assistants, Web Designers, and Web Developers. Starting at $900/month.",
   },
   robots: { index: true, follow: true },
+  verification: {
+    google: "VXBfhdWFxm5wo4Dpp9pk9RXbMyy3kPx_SvzwUBOJSLY",
+  },
 };
 
 export default function RootLayout({ children }) {
