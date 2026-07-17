@@ -5,6 +5,7 @@ import {
   useContext,
   useSyncExternalStore,
   useCallback,
+  useEffect,
 } from "react";
 
 const ThemeContext = createContext(undefined);
@@ -28,17 +29,20 @@ const subscribeToThemeChanges = (onChange) => {
 };
 
 export function ThemeProvider({ children }) {
-  // This is the pro way - no useEffect, no warnings
   const isDark = useSyncExternalStore(
     subscribeToThemeChanges,
     () => getTheme() === "dark",
-    () => false, // Server fallback
+    () => false,
   );
+
+  // Keeps the <html> tag's dark class in sync with the toggle state
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark", isDark);
+  }, [isDark]);
 
   const toggleTheme = useCallback(() => {
     const newValue = !isDark;
     setTheme(newValue);
-    // Manually dispatch event for same-tab updates
     window.dispatchEvent(
       new StorageEvent("storage", {
         key: "virtuo-theme",

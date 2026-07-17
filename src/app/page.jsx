@@ -2,7 +2,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { useTheme } from "../components/ThemeContext";
-// Changed this back to your actual filename to fix the "Module not found" error
 import CTAbtn from "../components/ContactUsNow";
 import Image from "next/image";
 
@@ -12,7 +11,6 @@ export default function Home() {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [cardScrollProgress, setCardScrollProgress] = useState([0, 0, 0]);
 
-  // Use 'mounted' from your ThemeContext to prevent hydration mismatches
   const { isDark, mounted } = useTheme();
 
   useEffect(() => {
@@ -67,7 +65,6 @@ export default function Home() {
         className="relative flex flex-col items-center justify-center min-h-screen p-6 text-center transition-colors duration-300 overflow-hidden"
       >
         <div className="absolute inset-0 z-0">
-          {/* Hydration fix: only render dynamic image src once mounted */}
           {mounted ? (
             <Image
               src={isDark ? "/darkHero.jpg" : "/lightHero.jpg"}
